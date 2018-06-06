@@ -55,11 +55,68 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+* {
+    box-sizing: border-box;
+}
 
+a {
+    text-decoration: none;
+}
 
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
 
+.blue-gray {
+    background-color: #607D8B;
+    color: #fff;
+}
 
+.text-blue-gray {
+    color: #607D8B;
+}
 
+.text-hover-blue-gray:hover {
+    color: #607D8B;
+}
+
+.white {
+    background-color: #fff;
+    color: #222222;
+}
+
+.text-white {
+    color: #fff;
+}
+
+.text-hover-white:hover {
+    color: #fff;
+}
+
+.nav-bar, .nav-link, .nav-brand {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-brand h1 {
+    font-size: 18px;
+    margin: 0 10px;
+}
+.nav-link, .nav-brand {
+    padding: 10px 15px;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+}
+
+.nav-link:hover {
+    background-color: #cccccc;
+}
 
 
 
@@ -74,8 +131,28 @@ textarea {
    Media Queries
    ========================================================================== */
 
-@media only screen and (min-width: 35em) {
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
 
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
 }
 
 @media print,
