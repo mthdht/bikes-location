@@ -19,6 +19,16 @@ function Slider(slideData, options) {
         titleColor: '#fff',
         descriptionColor: '#fff'
     };
+    this.slideDataDefaultData = {
+        imageSrc: '',
+        imageAlt: '',
+        title: 'Title for slide',
+        description: 'Description for slide'
+    };
+    this.sliderDataDefaultOptions = {
+        titleColor: '#000',
+        descriptionColor: '#000'
+    }
     this.data = slideData;
     this.options =  Object.assign({}, this.sliderDefaultOptions, options);
     this.elements = [];
