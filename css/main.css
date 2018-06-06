@@ -182,7 +182,7 @@ img {
     color: rgba(0,0,0,.8);
 }
 
-.slider-caption {
+.slide-caption {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -197,11 +197,11 @@ img {
     color: #fff;
 }
 
-.slider-caption-title {
+.slide-caption-title {
     margin: 15px 0;
 }
 
-.slider-caption-description {
+.slide-caption-description {
     margin: 0;
 }
 

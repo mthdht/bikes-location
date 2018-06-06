@@ -14,6 +14,7 @@ function Slider(slidesData = [{}], options = null) {
         interval: 5000,
         keyboard: true,
         autoplay: true,
+        controls: true
     };
 
     this.slideDataDefaultData = {
@@ -36,8 +37,11 @@ function Slider(slidesData = [{}], options = null) {
     }, this);
 
     this.options =  Object.assign({}, this.sliderDefaultOptions, options);
-    this.elements = [];
+    this.elements = [
+
+    ];
     this.isSliding = null;
+    this.interval = null;
 
 
 
@@ -55,8 +59,47 @@ function Slider(slidesData = [{}], options = null) {
         console.log(this.options);
     };
 
+    // create element for slider inside the '.slides' element
+    this.createSlide = function (slideData) {
+        var slide = $('<div/>', {
+            'class': 'slider-slide active'
+        });
 
-    // create elements for slider
+        var slideImage = $('<img/>', {
+            src: slideData.data.imageSrc,
+            alt: slideData.data.imageAlt,
+            'class': 'slide-image'
+        });
+
+        var slideCaption = $('<div>', {
+            'class': 'slide-caption'
+        });
+
+        var slideCaptionTitle = $('<h2>', {
+            html: slideData.data.title,
+            'class': 'slide-caption-title',
+            style: 'color:' + slideData.options.titleColor
+        });
+
+        var slideCaptionDescription = $('<p>', {
+            'class': 'slide-caption-description',
+            html: slideData.data.description
+        });
+
+        slideCaption.append(slideCaptionTitle, slideCaptionDescription);
+        slide.append(slideImage, slideCaption);
+        $('.slider-slides').append(slide);
+    };
+
+    // create the slider inside the '.slider' element
+    this.createSlider = function () {
+        // create the slides
+
+
+
+        // create the controls div
+
+    };
 
     // add slide
 

@@ -22,17 +22,16 @@ $(document).ready(function () {
     ];
 
     // options for slide
-    var options = {
+    var myoptions = {
         interval:4000,
         keyboard: false,
         autoplay:true
     };
 
     // new instance of slide
-    var slider = new Slider(sliderData);
+    var slider = new Slider(sliderData, myoptions);
 
     // test les data du slide
     slider.printData();
-
-
+    slider.printOptions();
 });
