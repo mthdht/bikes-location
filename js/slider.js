@@ -5,7 +5,7 @@
  * Version: 1.0
  */
 
-function Slider(slidesData, options = null) {
+function Slider(slidesData = [{}], options = null) {
     /* ==============================================
        SLIDER PROPERTIES
        ============================================== */
@@ -28,7 +28,7 @@ function Slider(slidesData, options = null) {
         descriptionColor: '#000'
     };
 
-    this.data = slidesData.map(function (slide) {
+    this.slidesData = slidesData.map(function (slide) {
         return {
             data: Object.assign({}, this.slideDataDefaultData, slide.data),
             options: Object.assign({}, this.slideDataDefaultOptions, slide.options)
@@ -47,7 +47,7 @@ function Slider(slidesData, options = null) {
 
     // print data
     this.printData = function () {
-        console.log(this.data);
+        console.log(this.slidesData);
     };
 
     // print options

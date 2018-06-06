@@ -14,6 +14,9 @@ $(document).ready(function () {
             data : {
                 imageSrc: 'http://gaetanboyron.fr/wp-content/uploads/2017/06/IMG_0442-1200x500.jpg',
                 imageAlt: 'stand de velo',
+            },
+            options: {
+                titleColor: '#fff'
             }
         }
     ];

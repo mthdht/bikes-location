@@ -10,6 +10,7 @@
 
         <link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     </head>
@@ -30,10 +31,38 @@
                     </div>
                 </div>
             </nav>
-            <div class="slider"></div>
+            <div class="slider">
+
+                <div class="slider-controls">
+                    <div class="slider-bullet"><i class="fas fa-circle"></i></div>
+                    <div class="slider-bullet"><i class="fas fa-circle"></i></div>
+                    <div class="slider-bullet"><i class="fas fa-circle"></i></div>
+                </div>
+
+                <button class="slider-prev text-white">
+                    <i class="fas fa-angle-left fa-2x"></i>
+                </button>
+
+                <button class="slider-next text-white">
+                    <i class="fas fa-angle-right fa-2x"></i>
+                </button>
+
+                <div class="slider-slides">
+                    <div class="slider-slide active">
+                        <img src="http://backgroundcheckall.com/wp-content/uploads/2017/12/parallax-background-image-1.jpg" alt="" class="slider-image">
+
+                        <div class="slider-caption">
+                            <h2 class="slider-caption-title">Test titre 1</h2>
+
+                            <p class="slider-caption-description">test de description 1</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </header>
 
         <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="js/slider.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>
