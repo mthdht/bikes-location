@@ -55,12 +55,22 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+
+/* ------------------ UTILITIES CLASSES ------------------------- */
+html {
+    overflow-x: hidden;
+}
 * {
     box-sizing: border-box;
 }
 
 a {
     text-decoration: none;
+}
+
+img {
+    width: 100%;
+    height: auto;
 }
 
 .container {
@@ -97,16 +107,19 @@ a {
     color: #fff;
 }
 
+/* ------------------ END UTILITIES CLASSES ------------------------- */
+
+
+
+
+/* ------------------ NAVIGATION ------------------------------- */
+
 .nav-bar, .nav-link, .nav-brand {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.nav-brand h1 {
-    font-size: 18px;
-    margin: 0 10px;
-}
 .nav-link, .nav-brand {
     padding: 10px 15px;
     color: #fff;
@@ -114,13 +127,117 @@ a {
     text-align: center;
 }
 
+.nav-brand img {
+    max-width: 70px;
+}
+
+.nav-brand h1 {
+    font-size: 18px;
+    margin: 0 10px;
+}
+
 .nav-link:hover {
     background-color: #cccccc;
 }
 
+/* ------------------ END NAVIGATION ------------------------------- */
 
 
 
+
+/* ------------------ SLIDER STYLE ---------------------------- */
+
+.slider, .slider-slides, .slider-slide {
+    width: 100%;
+    position: relative;
+}
+
+.slider-slides {
+
+}
+
+.slider-slide {
+    display: none;
+}
+
+.slider-slide.active {
+    display: block;
+}
+
+.slider-controls {
+    position: absolute;
+    display: flex;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.slider-bullet {
+    margin: 5px;
+}
+
+.slider-bullet:hover {
+    color: rgba(0,0,0,.8);
+}
+
+.slider-caption {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    text-align: center;
+    background-color: rgba(0,0,0, .1);
+}
+
+.slider-caption-title {
+
+}
+
+.slider-caption-description {
+
+}
+
+.slider-prev, .slider-next {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgba(0,0,0,.6);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.slider-prev {
+    left: -35px;
+}
+
+.slider-next {
+    right: -35px;
+}
+
+.slider-next i, .slider-prev i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.slider-prev i {
+    right: 15px;
+}
+
+.slider-next i {
+    left: 15px;
+}
+
+
+/* ------------------ END SLIDER STYLE ---------------------------- */
 
 
 
