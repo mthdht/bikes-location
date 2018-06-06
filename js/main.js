@@ -47,4 +47,7 @@ $(document).ready(function () {
     slider.printOptions();
 
     slider.createSlider();
+    setTimeout(function () {
+        slider.nextSlide();
+    }, 4000);
 });

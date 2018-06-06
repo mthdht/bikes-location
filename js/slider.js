@@ -37,9 +37,7 @@ function Slider(slidesData = [{}], options = null) {
     }, this);
 
     this.options =  Object.assign({}, this.sliderDefaultOptions, options);
-    this.elements = [
-
-    ];
+    this.currentIndex = 0;
     this.isSliding = null;
     this.interval = null;
 
@@ -135,13 +133,26 @@ function Slider(slidesData = [{}], options = null) {
 
     // add slide
 
+    // next slide
+    this.nextSlide = function() {
+        $('.slider-slide').eq(this.currentIndex).toggleClass('active');
+
+        if (this.currentIndex == this.slidesData.length -1) {
+            this.currentIndex = 0;
+        } else {
+            this.currentIndex += 1;
+        }
+
+        $('.slider-slide').eq(this.currentIndex).toggleClass('active');
+    };
+
+    // previous slide
+
     // play the slider
 
     // pause the slider
 
-    // next slide
 
-    // previous slide
 
 
 
