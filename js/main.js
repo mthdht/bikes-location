@@ -18,7 +18,18 @@ $(document).ready(function () {
             options: {
                 titleColor: '#fff'
             }
+        },
+        {
+            data : {
+                imageSrc: 'https://pbs.twimg.com/media/DbikTUGXcAAFnoT.jpg',
+                imageAlt: 'ville de lyon',
+                title: 'ville de lyon'
+            },
+            options: {
+                titleColor: '#fff'
+            }
         }
+
     ];
 
     // options for slide

@@ -62,7 +62,7 @@ function Slider(slidesData = [{}], options = null) {
     // create element for slider inside the '.slides' element
     this.createSlide = function (slideData) {
         var slide = $('<div/>', {
-            'class': 'slider-slide active'
+            'class': 'slider-slide'
         });
 
         var slideImage = $('<img/>', {
@@ -130,6 +130,7 @@ function Slider(slidesData = [{}], options = null) {
             'class': 'fas fa-angle-right fa-2x'
         })));
 
+        $('.slider-slide:first').toggleClass('active');
     };
 
     // add slide
