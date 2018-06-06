@@ -94,10 +94,41 @@ function Slider(slidesData = [{}], options = null) {
     // create the slider inside the '.slider' element
     this.createSlider = function () {
         // create the slides
+        $('.slider').append($('<div>', {
+            'class': 'slider-slides'
+        }));
 
-
+        this.slidesData.forEach(function (slide) {
+            this.createSlide(slide);
+        }, this);
 
         // create the controls div
+        var sliderControls = $('<div>', {
+            'class': 'slider-controls'
+        });
+
+        this.slidesData.forEach(function () {
+            $(sliderControls).append($('<div>', {
+                'class': 'slider-bullet'
+            }).append($('<i>', {
+                'class': 'fas fa-circle'
+            })));
+        });
+
+        $('.slider').append(sliderControls);
+
+        // create the prev and next button
+        $('.slider').append($('<button>', {
+            'class': 'slider-prev text-white'
+        }).append($('<i>', {
+            'class': 'fas fa-angle-left fa-2x'
+        })));
+
+        $('.slider').append($('<button>', {
+            'class': 'slider-next text-white'
+        }).append($('<i>', {
+            'class': 'fas fa-angle-right fa-2x'
+        })));
 
     };
 

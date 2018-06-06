@@ -34,4 +34,6 @@ $(document).ready(function () {
     // test les data du slide
     slider.printData();
     slider.printOptions();
+
+    slider.createSlider();
 });
