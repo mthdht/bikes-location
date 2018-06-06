@@ -5,7 +5,7 @@
  * Version: 1.0
  */
 
-function Slider(slideData, options) {
+function Slider(slidesData, options = null) {
     /* ==============================================
        SLIDER PROPERTIES
        ============================================== */
@@ -15,21 +15,26 @@ function Slider(slideData, options) {
         keyboard: true,
         autoplay: true,
     };
-    this.captionDefaultOptions = {
-        titleColor: '#fff',
-        descriptionColor: '#fff'
-    };
+
     this.slideDataDefaultData = {
-        imageSrc: '',
+        imageSrc: 'https://postradam.us/wp-content/uploads/2017/11/WordPress-Featured-Image.png',
         imageAlt: '',
         title: 'Title for slide',
         description: 'Description for slide'
     };
-    this.sliderDataDefaultOptions = {
+
+    this.slideDataDefaultOptions = {
         titleColor: '#000',
         descriptionColor: '#000'
-    }
-    this.data = slideData;
+    };
+
+    this.data = slidesData.map(function (slide) {
+        return {
+            data: Object.assign({}, this.slideDataDefaultData, slide.data),
+            options: Object.assign({}, this.slideDataDefaultOptions, slide.options)
+        };
+    }, this);
+
     this.options =  Object.assign({}, this.sliderDefaultOptions, options);
     this.elements = [];
     this.isSliding = null;
@@ -43,12 +48,13 @@ function Slider(slideData, options) {
     // print data
     this.printData = function () {
         console.log(this.data);
-    }
+    };
 
     // print options
     this.printOptions = function () {
         console.log(this.options);
-    }
+    };
+
 
     // create elements for slider
 

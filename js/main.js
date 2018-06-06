@@ -14,24 +14,6 @@ $(document).ready(function () {
             data : {
                 imageSrc: 'http://gaetanboyron.fr/wp-content/uploads/2017/06/IMG_0442-1200x500.jpg',
                 imageAlt: 'stand de velo',
-                title: 'test 1',
-                description: 'la description du test 1'
-            },
-            options: {
-                titleColor: '#fff',
-                descriptionColor: '#fff'
-            }
-        },
-        {
-            data : {
-                imageSrc: 'https://www.lepape.com/media/slider/slide-racktime.jpg',
-                imageAlt: 'arriere de 2 velo',
-                title: 'test 2',
-                description: 'la description du test 2'
-            },
-            options: {
-                titleColor: '#000',
-                descriptionColor: '#000'
             }
         }
     ];
@@ -44,12 +26,10 @@ $(document).ready(function () {
     };
 
     // new instance of slide
-    var slider = new Slider(sliderData, options);
+    var slider = new Slider(sliderData);
 
     // test les data du slide
     slider.printData();
-
-    slider.printOptions();
 
 
 });
