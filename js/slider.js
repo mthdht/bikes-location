@@ -135,6 +135,7 @@ function Slider(slidesData = [{}], options = null) {
     // make image slide
     this.slide = function(direction, animation) {
         var current = this.currentIndex;
+        this.isSliding =true;
 
         if (direction == 'left') {
             if (this.currentIndex == this.slidesData.length - 1) {
@@ -150,9 +151,6 @@ function Slider(slidesData = [{}], options = null) {
             }
         }
 
-        console.log(current);
-        console.log(this.currentIndex);
-
         var that = this;
 
         $('.slider-slide').eq(this.currentIndex).toggleClass('active slider-slide-' + direction + ' animate-' + direction + '-' + (direction == 'left' ? 'next' : 'prev'));
@@ -161,17 +159,27 @@ function Slider(slidesData = [{}], options = null) {
         setTimeout(function () {
             $('.slider-slide').eq(that.currentIndex).toggleClass('slider-slide-' + direction + ' animate-' + direction + '-' + (direction == 'left' ? 'next' : 'prev'));
             $('.slider-slide').eq(current).toggleClass('active animate-' + direction + '-current');
+            that.isSliding = false;
         }, 600);
     }
 
     // next slide
     this.nextSlide = function() {
-        this.slide('left', 'slide');
+        if (!this.isSliding) {
+            this.slide('left', 'slide');
+        } else {
+            console.warn('already sliding');
+        }
+
     };
 
     // previous slide
     this.prevSlide = function() {
-        this.slide('right', 'slide');
+        if (!this.isSliding) {
+            this.slide('right', 'slide');
+        } else {
+            console.warn('already sliding');
+        }
     }
 
     // play the slider
