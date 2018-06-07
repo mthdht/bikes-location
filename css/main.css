@@ -160,14 +160,15 @@ img {
     display: none;
 }
 
-.slider-slide-next {
+/* style for left animation */
+.slider-slide-left {
     position: absolute;
     top: 0;
     right: -100%;
 }
 
 .animate-left-current {
-    animation: slide-current 0.6s linear;
+    animation: slide-current-left 0.6s linear;
     animation-fill-mode: forwards;
 }
 
@@ -181,7 +182,7 @@ img {
     }
 }
 
-@keyframes slide-current {
+@keyframes slide-current-left {
     0% {
         right: 0;
     }
@@ -189,6 +190,40 @@ img {
         right: 100%;
     }
 }
+/* end style for left animation */
+
+/* style for right animation */
+.slider-slide-right {
+    position: absolute;
+    top: 0;
+    right: 100%;
+}
+
+.animate-right-current {
+    animation: slide-current-right 0.6s linear;
+    animation-fill-mode: forwards;
+}
+
+.animate-right-prev {
+    animation: slide-prev 0.6s linear;
+}
+
+@keyframes slide-prev {
+    100% {
+        right: 0;
+    }
+}
+
+@keyframes slide-current-right {
+    0% {
+        right: 0%;
+    }
+    100% {
+        right: -100%;
+    }
+}
+
+/* end style for right animation */
 
 .slider-slide.active {
     display: block;

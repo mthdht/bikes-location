@@ -133,27 +133,43 @@ function Slider(slidesData = [{}], options = null) {
 
     // add slide
 
-    // next slide
-    this.nextSlide = function() {
+    // make image slide
+    this.slide = function(direction, animation) {
         var current = this.currentIndex;
-        if (this.currentIndex == this.slidesData.length - 1) {
-            this.currentIndex = 0;
+
+        if (direction == 'left') {
+            if (this.currentIndex == this.slidesData.length - 1) {
+                this.currentIndex = 0;
+            } else {
+                this.currentIndex += 1;
+            }
         } else {
-            this.currentIndex += 1;
+            if (this.currentIndex == 0) {
+                this.currentIndex = this.slidesData.length - 1;
+            } else {
+                this.currentIndex -= 1;
+            }
         }
+
+        console.log(current);
+        console.log(this.currentIndex);
 
         var that = this;
 
-        $('.slider-slide').eq(this.currentIndex).toggleClass('active slider-slide-next animate-left-next');
-        $('.slider-slide').eq(current).toggleClass('animate-left-current');
+        $('.slider-slide').eq(this.currentIndex).toggleClass('active slider-slide-' + direction + ' animate-' + direction + '-' + (direction == 'left' ? 'next' : 'prev'));
+        $('.slider-slide').eq(current).toggleClass('animate-' + direction + '-current');
 
         setTimeout(function () {
-            $('.slider-slide').eq(that.currentIndex).toggleClass('slider-slide-next animate-left-next');
-            $('.slider-slide').eq(current).toggleClass('active animate-left-current');
+            $('.slider-slide').eq(that.currentIndex).toggleClass('slider-slide-' + direction + ' animate-' + direction + '-' + (direction == 'left' ? 'next' : 'prev'));
+            $('.slider-slide').eq(current).toggleClass('active animate-' + direction + '-current');
         }, 600);
+    }
 
-
+    // next slide
+    this.nextSlide = function() {
+        this.slide('left', 'slide');
     };
+
 
     // previous slide
 

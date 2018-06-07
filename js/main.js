@@ -47,10 +47,12 @@ $(document).ready(function () {
     slider.printOptions();
 
     slider.createSlider();
-    setTimeout(function () {
-        slider.nextSlide();
-    }, 1000);
-    setTimeout(function () {
+
+    var interval = setInterval(function () {
         slider.nextSlide();
     }, 2000);
+
+    // setTimeout(function () {
+    //     slider.nextSlide();
+    // }, 1000);
 });
