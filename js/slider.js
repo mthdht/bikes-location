@@ -176,6 +176,12 @@ function Slider(slidesData = [{}], options = null) {
     }
 
     // play the slider
+    this.playSlider = function() {
+        var that = this;
+        this.interval = setInterval(function () {
+            that.nextSlide();
+        }, that.options.interval);
+    };
 
     // pause the slider
 

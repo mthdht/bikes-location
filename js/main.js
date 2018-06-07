@@ -57,9 +57,12 @@ $(document).ready(function () {
     // }, 1000);
 
     $('.slider-prev').on('click', function () {
-        slider.prevSlide('right', 'slide');
+        slider.prevSlide();
     });
     $('.slider-next').on('click', function () {
-        slider.nextSlide('left', 'slide');
+        slider.nextSlide();
     });
+
+    slider.playSlider();
+    console.log(slider.interval);
 });
