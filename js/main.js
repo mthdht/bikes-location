@@ -38,7 +38,7 @@ $(document).ready(function () {
         interval:4000,
         keyboard: false,
         autoplay:true,
-        animation: 'test'
+        animation: 'fade'
     };
 
     // new instance of slide
