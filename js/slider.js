@@ -80,7 +80,8 @@ function Slider(slidesData = [{}], options = null) {
 
         var slideCaptionDescription = $('<p>', {
             'class': 'slide-caption-description',
-            html: slideData.data.description
+            html: slideData.data.description,
+            style: 'color:' + slideData.options.descriptionColor
         });
 
         slideCaption.append(slideCaptionTitle, slideCaptionDescription);
@@ -96,6 +97,7 @@ function Slider(slidesData = [{}], options = null) {
         }));
 
         this.slidesData.forEach(function (slide) {
+            console.log(slide);
             this.createSlide(slide);
         }, this);
 
