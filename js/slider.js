@@ -40,7 +40,7 @@ function Slider(slidesData = [{}], options = null) {
     this.options =  Object.assign({}, this.sliderDefaultOptions, options);
     this.currentIndex = 0;
     this.isSliding = null;
-    this.interval = null;
+    this.intervalID = null;
 
     /* ==============================================
        SLIDER METHODS
@@ -165,27 +165,20 @@ function Slider(slidesData = [{}], options = null) {
 
     // next slide
     this.nextSlide = function() {
-        if (!this.isSliding) {
-            this.slide('left', 'slide');
-        } else {
-            console.warn('already sliding');
-        }
+        this.slide('left', 'slide');
 
     };
 
     // previous slide
     this.prevSlide = function() {
-        if (!this.isSliding) {
-            this.slide('right', 'slide');
-        } else {
-            console.warn('already sliding');
-        }
+        this.slide('right', 'slide');
+
     }
 
     // play the slider
     this.playSlider = function() {
         var that = this;
-        this.interval = setInterval(function () {
+        this.intervalID = setInterval(function () {
             that.nextSlide();
         }, that.options.interval);
     };
@@ -199,13 +192,26 @@ function Slider(slidesData = [{}], options = null) {
 
         // next button event
         $('.slider-next').on('click', function (event) {
-            console.log(event);
-            that.nextSlide();
+            if (!that.isSliding) {
+                clearInterval(that.intervalID);
+                that.intervalID = null;
+                that.nextSlide();
+                that.playSlider();
+            } else {
+                console.warn('already sliding');
+            }
         });
 
         // prev button event
         $('.slider-prev').on('click', function () {
-            that.prevSlide();
+            if (!that.isSliding) {
+                clearInterval(that.intervalID);
+                that.intervalID = null;
+                that.prevSlide();
+                that.playSlider();
+            } else {
+                console.warn('already sliding');
+            }
         });
     };
 
