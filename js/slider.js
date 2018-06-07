@@ -97,7 +97,6 @@ function Slider(slidesData = [{}], options = null) {
         }));
 
         this.slidesData.forEach(function (slide) {
-            console.log(slide);
             this.createSlide(slide);
         }, this);
 
@@ -139,6 +138,7 @@ function Slider(slidesData = [{}], options = null) {
         var current = this.currentIndex;
         this.isSliding =true;
 
+        // increment or decrement the current index
         if (direction == 'left') {
             if (this.currentIndex == this.slidesData.length - 1) {
                 this.currentIndex = 0;
@@ -153,28 +153,46 @@ function Slider(slidesData = [{}], options = null) {
             }
         }
 
+        //make animation based on animation option
         var that = this;
 
-        $('.slider-slide').eq(this.currentIndex).toggleClass('active slider-slide-' + direction + ' animate-' + direction + '-' + (direction == 'left' ? 'next' : 'prev'));
-        $('.slider-slide').eq(current).toggleClass('animate-' + direction + '-current');
+        switch (this.options.animation) {
+            case 'slide':
+                // will slide the next or prev slide from right(or left) to left(or right)
+                $('.slider-slide').eq(this.currentIndex).toggleClass('active slider-slide-' + direction + ' animate-' + direction + '-' + (direction == 'left' ? 'next' : 'prev'));
+                $('.slider-slide').eq(current).toggleClass('animate-' + direction + '-current');
 
-        setTimeout(function () {
-            $('.slider-slide').eq(that.currentIndex).toggleClass('slider-slide-' + direction + ' animate-' + direction + '-' + (direction == 'left' ? 'next' : 'prev'));
-            $('.slider-slide').eq(current).toggleClass('active animate-' + direction + '-current');
-            that.isSliding = false;
-        }, 600);
+                setTimeout(function () {
+                    $('.slider-slide').eq(that.currentIndex).toggleClass('slider-slide-' + direction + ' animate-' + direction + '-' + (direction == 'left' ? 'next' : 'prev'));
+                    $('.slider-slide').eq(current).toggleClass('active animate-' + direction + '-current');
+                    that.isSliding = false;
+                }, 600);
+                break;
+            case 'fade':
+                // will fade sle next or prev slide
+                $('.slider-slide').eq(this.currentIndex).toggleClass('active');
+                $('.slider-slide').eq(current).toggleClass('active');
+                $('.slider-slide').eq(this.currentIndex).toggleClass('slider-fade');
+
+                setTimeout(function () {
+                    $('.slider-slide').eq(that.currentIndex).toggleClass('slider-fade');
+                    that.isSliding = false;
+                }, 1000);
+                break;
+            default:
+                $('.slider-slide').eq(current).toggleClass('active');
+                $('.slider-slide').eq(this.currentIndex).toggleClass('active');
+        }
     }
 
     // next slide
     this.nextSlide = function() {
         this.slide('left', 'slide');
-
     };
 
     // previous slide
     this.prevSlide = function() {
         this.slide('right', 'slide');
-
     }
 
     // play the slider
@@ -184,8 +202,6 @@ function Slider(slidesData = [{}], options = null) {
             that.nextSlide();
         }, that.options.interval);
     };
-
-    // pause the slider
 
     // event listener
     this.eventListener = function () {
