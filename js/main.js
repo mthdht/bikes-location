@@ -49,5 +49,5 @@ $(document).ready(function () {
     slider.createSlider();
     setTimeout(function () {
         slider.nextSlide();
-    }, 4000);
+    }, 1000);
 });

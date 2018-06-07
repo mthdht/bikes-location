@@ -135,15 +135,24 @@ function Slider(slidesData = [{}], options = null) {
 
     // next slide
     this.nextSlide = function() {
-        $('.slider-slide').eq(this.currentIndex).toggleClass('active');
-
-        if (this.currentIndex == this.slidesData.length -1) {
+        var current = this.currentIndex;
+        if (this.currentIndex == this.slidesData.length) {
             this.currentIndex = 0;
         } else {
             this.currentIndex += 1;
         }
 
-        $('.slider-slide').eq(this.currentIndex).toggleClass('active');
+        var that = this;
+
+        $('.slider-slide').eq(this.currentIndex).toggleClass('active slider-slide-next animate-left-next');
+        $('.slider-slide').eq(current).toggleClass('animate-left-current');
+
+        setTimeout(function () {
+            $('.slider-slide').eq(that.currentIndex).toggleClass('slider-slide-next animate-left-next');
+            $('.slider-slide').eq(current).toggleClass('active animate-left-current');
+        }, 600);
+
+
     };
 
     // previous slide

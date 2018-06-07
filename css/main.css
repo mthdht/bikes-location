@@ -160,6 +160,36 @@ img {
     display: none;
 }
 
+.slider-slide-next {
+    position: absolute;
+    top: 0;
+    right: -100%;
+}
+
+.animate-left-current {
+    animation: slide-current 0.6s linear;
+    animation-fill-mode: forwards;
+}
+
+.animate-left-next {
+    animation: slide-next 0.6s linear;
+}
+
+@keyframes slide-next {
+    100% {
+        right: 0;
+    }
+}
+
+@keyframes slide-current {
+    0% {
+        right: 0;
+    }
+    100% {
+        right: 100%;
+    }
+}
+
 .slider-slide.active {
     display: block;
 }
