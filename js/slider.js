@@ -170,8 +170,10 @@ function Slider(slidesData = [{}], options = null) {
         this.slide('left', 'slide');
     };
 
-
     // previous slide
+    this.prevSlide = function() {
+        this.slide('right', 'slide');
+    }
 
     // play the slider
 

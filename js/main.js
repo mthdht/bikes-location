@@ -48,11 +48,18 @@ $(document).ready(function () {
 
     slider.createSlider();
 
-    var interval = setInterval(function () {
-        slider.nextSlide();
-    }, 2000);
+    // var interval = setInterval(function () {
+    //     slider.nextSlide();
+    // }, 2000);
 
     // setTimeout(function () {
     //     slider.nextSlide();
     // }, 1000);
+
+    $('.slider-prev').on('click', function () {
+        slider.prevSlide('right', 'slide');
+    });
+    $('.slider-next').on('click', function () {
+        slider.nextSlide('left', 'slide');
+    });
 });
