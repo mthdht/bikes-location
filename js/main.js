@@ -37,7 +37,8 @@ $(document).ready(function () {
     var myoptions = {
         interval:4000,
         keyboard: false,
-        autoplay:true
+        autoplay:true,
+        animation: 'test'
     };
 
     // new instance of slide
