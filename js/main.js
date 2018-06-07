@@ -56,13 +56,7 @@ $(document).ready(function () {
     //     slider.nextSlide();
     // }, 1000);
 
-    $('.slider-prev').on('click', function () {
-        slider.prevSlide();
-    });
-    $('.slider-next').on('click', function () {
-        slider.nextSlide();
-    });
 
-    slider.playSlider();
-    console.log(slider.interval);
+    //slider.playSlider();
+    slider.eventListener();
 });

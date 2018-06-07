@@ -14,7 +14,8 @@ function Slider(slidesData = [{}], options = null) {
         interval: 5000,
         keyboard: true,
         autoplay: true,
-        controls: true
+        controls: true,
+        animation: 'slide'
     };
 
     this.slideDataDefaultData = {
@@ -40,8 +41,6 @@ function Slider(slidesData = [{}], options = null) {
     this.currentIndex = 0;
     this.isSliding = null;
     this.interval = null;
-
-
 
     /* ==============================================
        SLIDER METHODS
@@ -185,14 +184,23 @@ function Slider(slidesData = [{}], options = null) {
 
     // pause the slider
 
+    // event listener
+    this.eventListener = function () {
+        var that = this;
 
+        // keyboard event
 
+        // next button event
+        $('.slider-next').on('click', function (event) {
+            console.log(event);
+            that.nextSlide();
+        });
 
+        // prev button event
+        $('.slider-prev').on('click', function () {
+            that.prevSlide();
+        });
+    };
 
-
-
-
-
-
-
+    this.eventListener();
 }
