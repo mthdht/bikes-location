@@ -16,7 +16,8 @@ $(document).ready(function () {
                 imageAlt: 'stand de velo',
             },
             options: {
-                titleColor: '#fff'
+                titleColor: '#fff',
+                descriptionColor: '#fff'
             }
         },
         {
