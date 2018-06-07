@@ -50,4 +50,7 @@ $(document).ready(function () {
     setTimeout(function () {
         slider.nextSlide();
     }, 1000);
+    setTimeout(function () {
+        slider.nextSlide();
+    }, 2000);
 });

@@ -136,7 +136,7 @@ function Slider(slidesData = [{}], options = null) {
     // next slide
     this.nextSlide = function() {
         var current = this.currentIndex;
-        if (this.currentIndex == this.slidesData.length) {
+        if (this.currentIndex == this.slidesData.length - 1) {
             this.currentIndex = 0;
         } else {
             this.currentIndex += 1;
