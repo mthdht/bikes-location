@@ -45,18 +45,4 @@ $(document).ready(function () {
     // test les data du slide
     slider.printData();
     slider.printOptions();
-
-    slider.createSlider();
-
-    // var interval = setInterval(function () {
-    //     slider.nextSlide();
-    // }, 2000);
-
-    // setTimeout(function () {
-    //     slider.nextSlide();
-    // }, 1000);
-
-
-    //slider.playSlider();
-    slider.eventListener();
 });

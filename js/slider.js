@@ -187,7 +187,6 @@ function Slider(slidesData = [{}], options = null) {
     // event listener
     this.eventListener = function () {
         var that = this;
-
         // keyboard event
 
         // next button event
@@ -202,5 +201,18 @@ function Slider(slidesData = [{}], options = null) {
         });
     };
 
-    this.eventListener();
+    this.init = function () {
+        // create the dom
+        this.createSlider();
+
+        // add the events listeners
+        this.eventListener();
+
+        // play the slider if autoplay option true
+        if (this.options.autoplay) {
+            this.playSlider();
+        }
+    };
+
+    this.init();
 }
