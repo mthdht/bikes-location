@@ -134,24 +134,8 @@ function Slider(slidesData = [{}], options = null) {
     // add slide
 
     // make image slide
-    this.slide = function(direction, animation) {
-        var current = this.currentIndex;
+    this.slide = function(direction, from, to) {
         this.isSliding =true;
-
-        // increment or decrement the current index
-        if (direction == 'left') {
-            if (this.currentIndex == this.slidesData.length - 1) {
-                this.currentIndex = 0;
-            } else {
-                this.currentIndex += 1;
-            }
-        } else {
-            if (this.currentIndex == 0) {
-                this.currentIndex = this.slidesData.length - 1;
-            } else {
-                this.currentIndex -= 1;
-            }
-        }
 
         //make animation based on animation option
         var that = this;
@@ -159,41 +143,53 @@ function Slider(slidesData = [{}], options = null) {
         switch (this.options.animation) {
             case 'slide':
                 // will slide the next or prev slide from right(or left) to left(or right)
-                $('.slider-slide').eq(this.currentIndex).toggleClass('active slider-slide-' + direction + ' animate-' + direction + '-' + (direction == 'left' ? 'next' : 'prev'));
-                $('.slider-slide').eq(current).toggleClass('animate-' + direction + '-current');
+                $('.slider-slide').eq(to).toggleClass('active slider-slide-' + direction + ' animate-' + direction + '-' + (direction == 'left' ? 'next' : 'prev'));
+                $('.slider-slide').eq(from).toggleClass('animate-' + direction + '-current');
 
                 setTimeout(function () {
-                    $('.slider-slide').eq(that.currentIndex).toggleClass('slider-slide-' + direction + ' animate-' + direction + '-' + (direction == 'left' ? 'next' : 'prev'));
-                    $('.slider-slide').eq(current).toggleClass('active animate-' + direction + '-current');
+                    $('.slider-slide').eq(to).toggleClass('slider-slide-' + direction + ' animate-' + direction + '-' + (direction == 'left' ? 'next' : 'prev'));
+                    $('.slider-slide').eq(from).toggleClass('active animate-' + direction + '-current');
                     that.isSliding = false;
                 }, 600);
                 break;
             case 'fade':
                 // will fade sle next or prev slide
-                $('.slider-slide').eq(this.currentIndex).toggleClass('active');
-                $('.slider-slide').eq(current).toggleClass('active');
-                $('.slider-slide').eq(this.currentIndex).toggleClass('slider-fade');
+                $('.slider-slide').eq(to).toggleClass('active');
+                $('.slider-slide').eq(from).toggleClass('active');
+                $('.slider-slide').eq(to).toggleClass('slider-fade');
 
                 setTimeout(function () {
-                    $('.slider-slide').eq(that.currentIndex).toggleClass('slider-fade');
+                    $('.slider-slide').eq(to).toggleClass('slider-fade');
                     that.isSliding = false;
                 }, 1000);
                 break;
             default:
-                $('.slider-slide').eq(current).toggleClass('active');
-                $('.slider-slide').eq(this.currentIndex).toggleClass('active');
+                $('.slider-slide').eq(from).toggleClass('active');
+                $('.slider-slide').eq(to).toggleClass('active');
         }
-    }
+    };
 
     // next slide
     this.nextSlide = function() {
-        this.slide('left', 'slide');
+        var current = this.currentIndex;
+        if (this.currentIndex == this.slidesData.length - 1) {
+            this.currentIndex = 0;
+        } else {
+            this.currentIndex += 1;
+        }
+        this.slide('left', current, this.currentIndex);
     };
 
     // previous slide
     this.prevSlide = function() {
-        this.slide('right', 'slide');
-    }
+        var current = this.currentIndex;
+        if (this.currentIndex == 0) {
+            this.currentIndex = this.slidesData.length - 1;
+        } else {
+            this.currentIndex -= 1;
+        }
+        this.slide('right', current, this.currentIndex);
+    };
 
     // play the slider
     this.playSlider = function() {
@@ -214,7 +210,9 @@ function Slider(slidesData = [{}], options = null) {
                 clearInterval(that.intervalID);
                 that.intervalID = null;
                 that.nextSlide();
-                that.playSlider();
+                if (that.options.autoplay) {
+                    that.playSlider();
+                }
             } else {
                 console.warn('already sliding');
             }
@@ -226,11 +224,37 @@ function Slider(slidesData = [{}], options = null) {
                 clearInterval(that.intervalID);
                 that.intervalID = null;
                 that.prevSlide();
-                that.playSlider();
+                if (that.options.autoplay) {
+                    that.playSlider();
+                }
             } else {
                 console.warn('already sliding');
             }
         });
+
+        $('.slider-bullet').on('click', function (event) {
+            if (!that.isSliding) {
+                clearInterval(that.intervalID);
+                that.intervalID = null;
+                // check whenever slide from left or right based on bullet index and current slide index
+                if ($('.slider-bullet').index(event.currentTarget) > that.currentIndex) {
+                    var direction = 'left';
+                } else {
+                    var direction = 'right';
+                }
+
+                var current = that.currentIndex;
+                that.currentIndex = $('.slider-bullet').index(event.currentTarget);
+                if (current != that.currentIndex) {
+                    that.slide(direction, current, that.currentIndex);
+                    if (that.options.autoplay) {
+                        that.playSlider();
+                    }
+                }
+            } else {
+                console.warn('already sliding');
+            }
+        })
     };
 
     this.init = function () {

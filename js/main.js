@@ -29,16 +29,25 @@ $(document).ready(function () {
             options: {
                 titleColor: '#fff'
             }
+        },
+        {
+            data: {
+                imageSrc: 'http://backgroundcheckall.com/wp-content/uploads/2017/12/parallax-background-image-1.jpg',
+                imageAlt: 'ville de lyon',
+                title: 'ville de lyon'
+            },
+            options: {
+                titleColor: '#fff'
+            }
         }
-
     ];
 
     // options for slide
     var myoptions = {
         interval:4000,
         keyboard: false,
-        autoplay:true,
-        animation: 'fade'
+        autoplay:false,
+        animation: 'slide'
     };
 
     // new instance of slide
@@ -47,4 +56,6 @@ $(document).ready(function () {
     // test les data du slide
     slider.printData();
     slider.printOptions();
+
+    console.log($('.slider-bullet'));
 });
