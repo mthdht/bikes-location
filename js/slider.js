@@ -239,6 +239,7 @@ function Slider(slidesData = [{}], options = null) {
             }
         });
 
+        // bullet button event
         $('.slider-bullet').on('click', function (event) {
             if (!that.isSliding) {
                 clearInterval(that.intervalID);

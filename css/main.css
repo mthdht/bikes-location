@@ -251,16 +251,17 @@ img {
     z-index: 10;
 }
 
-.slider-bullet {
+.slider-bullet i {
     margin: 5px;
     color: rgba(0,0,0,.6);
+    cursor: pointer;
 }
 
-.slider-bullet.active {
+.slider-bullet.active i {
     color: rgba(255,255,255,.6);
 }
 
-.slider-bullet:hover:not(.active) {
+.slider-bullet:hover:not(.active) i {
     color: rgba(0,0,0,.9);
 }
 
@@ -296,6 +297,10 @@ img {
     top: 50%;
     transform: translateY(-50%);
     z-index: 10;
+}
+
+.slider-prev:hover, .slider-next:hover {
+    background-color: rgba(0,0,0,.8);
 }
 
 .slider-prev {
