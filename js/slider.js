@@ -113,7 +113,11 @@ function Slider(slidesData = [{}], options = null) {
             })));
         });
 
+
+
         $('.slider').append(sliderControls);
+
+        $('.slider-bullet').eq(0).toggleClass('active');
 
         // create the prev and next button
         $('.slider').append($('<button>', {
@@ -149,6 +153,9 @@ function Slider(slidesData = [{}], options = null) {
                 setTimeout(function () {
                     $('.slider-slide').eq(to).toggleClass('slider-slide-' + direction + ' animate-' + direction + '-' + (direction == 'left' ? 'next' : 'prev'));
                     $('.slider-slide').eq(from).toggleClass('active animate-' + direction + '-current');
+                    console.log($('.slider-bullet').eq(to));
+                    $('.slider-bullet').eq(to).toggleClass('active');
+                    $('.slider-bullet').eq(from).toggleClass('active');
                     that.isSliding = false;
                 }, 600);
                 break;

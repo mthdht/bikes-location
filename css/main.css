@@ -253,10 +253,15 @@ img {
 
 .slider-bullet {
     margin: 5px;
+    color: rgba(0,0,0,.6);
 }
 
-.slider-bullet:hover {
-    color: rgba(0,0,0,.8);
+.slider-bullet.active {
+    color: rgba(255,255,255,.6);
+}
+
+.slider-bullet:hover:not(.active) {
+    color: rgba(0,0,0,.9);
 }
 
 .slide-caption {
