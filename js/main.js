@@ -45,9 +45,10 @@ $(document).ready(function () {
     // options for slide
     var myoptions = {
         interval:4000,
-        keyboard: false,
+        keyboard: true,
         autoplay: true,
-        animation: 'slide'
+        animation: 'slide',
+        controls: true
     };
 
     // new instance of slide

@@ -100,22 +100,22 @@ function Slider(slidesData = [{}], options = null) {
             this.createSlide(slide);
         }, this);
 
-        // create the controls div
-        var sliderControls = $('<div>', {
-            'class': 'slider-controls'
-        });
+        // create the controls div depend on options
+        if (this.options.controls) {
+            var sliderControls = $('<div>', {
+                'class': 'slider-controls'
+            });
 
-        this.slidesData.forEach(function () {
-            $(sliderControls).append($('<div>', {
-                'class': 'slider-bullet'
-            }).append($('<i>', {
-                'class': 'fas fa-circle'
-            })));
-        });
+            this.slidesData.forEach(function () {
+                $(sliderControls).append($('<div>', {
+                    'class': 'slider-bullet'
+                }).append($('<i>', {
+                    'class': 'fas fa-circle'
+                })));
+            });
 
-
-
-        $('.slider').append(sliderControls);
+            $('.slider').append(sliderControls);
+        }
 
         $('.slider-bullet').eq(0).toggleClass('active');
 
