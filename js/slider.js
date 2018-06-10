@@ -264,34 +264,37 @@ function Slider(slidesData = [{}], options = null) {
         });
 
         // right and left arrow event
-        $(document).on('keypress', function (event) {
-            switch (event.keyCode) {
-                case 37:
-                    if (!that.isSliding) {
-                        clearInterval(that.intervalID);
-                        that.intervalID = null;
-                        that.prevSlide();
-                        if (that.options.autoplay) {
-                            that.playSlider();
+        if (this.options.keyboard) {
+            $(document).on('keypress', function (event) {
+                switch (event.keyCode) {
+                    case 37:
+                        if (!that.isSliding) {
+                            clearInterval(that.intervalID);
+                            that.intervalID = null;
+                            that.prevSlide();
+                            if (that.options.autoplay) {
+                                that.playSlider();
+                            }
+                        } else {
+                            console.warn('already sliding');
                         }
-                    } else {
-                        console.warn('already sliding');
-                    }
-                    break;
-                case 39:
-                    if (!that.isSliding) {
-                        clearInterval(that.intervalID);
-                        that.intervalID = null;
-                        that.nextSlide();
-                        if (that.options.autoplay) {
-                            that.playSlider();
+                        break;
+                    case 39:
+                        if (!that.isSliding) {
+                            clearInterval(that.intervalID);
+                            that.intervalID = null;
+                            that.nextSlide();
+                            if (that.options.autoplay) {
+                                that.playSlider();
+                            }
+                        } else {
+                            console.warn('already sliding');
                         }
-                    } else {
-                        console.warn('already sliding');
-                    }
-                    break;
-            }
-        });
+                        break;
+                }
+            });
+        }
+
     };
 
     this.init = function () {
