@@ -153,7 +153,6 @@ function Slider(slidesData = [{}], options = null) {
                 setTimeout(function () {
                     $('.slider-slide').eq(to).toggleClass('slider-slide-' + direction + ' animate-' + direction + '-' + (direction == 'left' ? 'next' : 'prev'));
                     $('.slider-slide').eq(from).toggleClass('active animate-' + direction + '-current');
-                    console.log($('.slider-bullet').eq(to));
                     $('.slider-bullet').eq(to).toggleClass('active');
                     $('.slider-bullet').eq(from).toggleClass('active');
                     that.isSliding = false;
@@ -262,7 +261,38 @@ function Slider(slidesData = [{}], options = null) {
             } else {
                 console.warn('already sliding');
             }
-        })
+        });
+
+        // right and left arrow event
+        console.log($(document));
+        $(document).on('keypress', function (event) {
+            switch (event.keyCode) {
+                case 37:
+                    if (!that.isSliding) {
+                        clearInterval(that.intervalID);
+                        that.intervalID = null;
+                        that.prevSlide();
+                        if (that.options.autoplay) {
+                            that.playSlider();
+                        }
+                    } else {
+                        console.warn('already sliding');
+                    }
+                    break;
+                case 39:
+                    if (!that.isSliding) {
+                        clearInterval(that.intervalID);
+                        that.intervalID = null;
+                        that.nextSlide();
+                        if (that.options.autoplay) {
+                            that.playSlider();
+                        }
+                    } else {
+                        console.warn('already sliding');
+                    }
+                    break;
+            }
+        });
     };
 
     this.init = function () {

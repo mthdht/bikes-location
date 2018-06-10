@@ -46,7 +46,7 @@ $(document).ready(function () {
     var myoptions = {
         interval:4000,
         keyboard: false,
-        autoplay:false,
+        autoplay:true,
         animation: 'slide'
     };
 
@@ -56,6 +56,4 @@ $(document).ready(function () {
     // test les data du slide
     slider.printData();
     slider.printOptions();
-
-    console.log($('.slider-bullet'));
 });
