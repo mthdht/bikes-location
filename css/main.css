@@ -361,20 +361,49 @@ img {
 
 .interactive-map {
     display: flex;
-    text-align: center;
+    flex-wrap: wrap;
+    align-items: stretch;
 }
 
 #map {
     height: 550px;
-    width: 75%;
+    width: 100%;
 }
 
 #panel {
-    height: 550px;
-    width: 25%;
+    width: 100%;
+    padding: 10px;
+    color: rgba(0,0,0,.7);
+    display: none;
+    position: relative;
 }
 
-/* ------------------ SECTION MAP INTERACTIVE --------------------- */
+#panel h2 {
+    text-align: center;
+}
+
+.icon i {
+    background-color: white;
+    color: #2196f3;
+    border-radius: 50%;
+}
+
+.station-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.toggle-panel {
+    position: absolute;
+    right: 10px;
+    padding: 0;
+    border: none;
+    color: rgba(0,0,0,.7);
+    background-color: white;
+}
+
+/* ------------------ END SECTION MAP INTERACTIVE --------------------- */
 
 
 /* ==========================================================================
@@ -403,7 +432,18 @@ img {
         display: flex;
     }
 
+    .interactive-map {
+        flex-wrap: nowrap;
+    }
 
+    #map {
+        height: 550px;
+        width: 100%;
+    }
+
+    #panel {
+        width: 50%;
+    }
 }
 
 @media (min-width: 992px) {
@@ -416,6 +456,10 @@ img {
         left: 25%;
         top: 25%;
         bottom: 25%;
+    }
+
+    #panel {
+        width: 40%;
     }
 
 }
