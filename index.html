@@ -13,6 +13,29 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+        <style>
+            #map {
+                height: 550px;
+                width: 75%;
+            }
+            #panel {
+                height: 550px;
+                width: 25%;
+                background-color: rgba(0,0,0,.4);
+            }
+            .content {
+                display: flex;
+            }
+
+            p {
+                padding: 15px;
+                margin: 0;
+            }
+
+            span {
+                margin-left: 40px;
+            }
+        </style>
     </head>
     <body>
         <!--[if lt IE 8]>
@@ -35,12 +58,36 @@
             </div>
         </header>
 
+        <section class="stations-infos">
+            <h2>La Carte</h2>
+            <div class="container">
+                <div class="infos">
+                    <div class="info">
+                        <i class="fas fa-bicycle fa-4x"></i>
+                        <p></p>
+                    </div>
+                    <div class="info">
+                        <i class="fas fa-warehouse fa-4x"></i>
+                        <p></p>
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+
+        <div class="content">
+            <div id="map"></div>
+            <div id="panel"></div>
+        </div>
+
+
         <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
         <script src="js/slider.js"></script>
         <script src="js/mapManager.js"></script>
         <script src="js/main.js"></script>
-        <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSStEbmOqvlmb3ogmJsjiTFs2VKj8a4NY&callback=initMap&languages=fr&region=FR">
+        <script defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSStEbmOqvlmb3ogmJsjiTFs2VKj8a4NY&languages=fr&region=FR">
         </script>
     </body>
 </html>

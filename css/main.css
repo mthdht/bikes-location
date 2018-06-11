@@ -57,9 +57,12 @@ textarea {
    ========================================================================== */
 
 /* ------------------ UTILITIES CLASSES ------------------------- */
-html {
-    overflow-x: hidden;
+
+body, html {
+    width: 100%;
+    height: 100%;
 }
+
 * {
     box-sizing: border-box;
 }
@@ -146,6 +149,10 @@ img {
 
 
 /* ------------------ SLIDER STYLE ---------------------------- */
+
+.slider {
+    overflow-x: hidden;
+}
 
 .slider, .slider-slides, .slider-slide {
     width: 100%;
@@ -328,7 +335,26 @@ img {
 
 /* ------------------ END SLIDER STYLE ---------------------------- */
 
+/* ------------------ SECTION STATIONS INFOS ---------------------- */
 
+.stations-infos {
+    background-color: #2196f3;
+    text-align: center;
+    padding: 10px;
+    color: white;
+}
+
+.infos {
+    display: flex;
+}
+
+.info {
+    width: 49.999%;
+    text-align: center;
+}
+
+
+/* ------------------ SECTION STATIONS INFOS ---------------------- */
 
 
 

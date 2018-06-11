@@ -8,6 +8,9 @@
 
 $(document).ready(function () {
 
+/*
+ * logic for slider
+ */
     //data for slide
     var sliderData = [
         {
@@ -54,7 +57,18 @@ $(document).ready(function () {
     // new instance of slide
     var slider = new Slider(sliderData, myoptions);
 
-    // test les data du slide
-    slider.printData();
-    slider.printOptions();
+    /*
+     * logic for map
+     */
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 13,
+        center: { lat: 45.7524845, lng: 4.8474354 },
+    });
+
+    $.get({
+        url:'https://api.jcdecaux.com/vls/v1/stations?contract=lyon&apiKey=74369f6b8f27af8c8490527ed36bfc461783501c'
+    }).done(function (data) {
+        var mapManager = new MapManager(map, data);
+        console.log(mapManager);
+    });
 });
