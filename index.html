@@ -13,29 +13,6 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-        <style>
-            #map {
-                height: 550px;
-                width: 75%;
-            }
-            #panel {
-                height: 550px;
-                width: 25%;
-                background-color: rgba(0,0,0,.4);
-            }
-            .content {
-                display: flex;
-            }
-
-            p {
-                padding: 15px;
-                margin: 0;
-            }
-
-            span {
-                margin-left: 40px;
-            }
-        </style>
     </head>
     <body>
         <!--[if lt IE 8]>
@@ -71,15 +48,15 @@
                         <p></p>
                     </div>
                 </div>
-
-
             </div>
         </section>
 
-        <div class="content">
+        <section class="interactive-map">
             <div id="map"></div>
-            <div id="panel"></div>
-        </div>
+            <div id="panel">
+                <h2>Détail de la station</h2>
+            </div>
+        </section>
 
 
         <script src="https://code.jquery.com/jquery-3.3.1.js"></script>

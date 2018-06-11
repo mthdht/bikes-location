@@ -353,10 +353,28 @@ img {
     text-align: center;
 }
 
-
 /* ------------------ SECTION STATIONS INFOS ---------------------- */
 
 
+
+/* ------------------ SECTION MAP INTERACTIVE --------------------- */
+
+.interactive-map {
+    display: flex;
+    text-align: center;
+}
+
+#map {
+    height: 550px;
+    width: 75%;
+}
+
+#panel {
+    height: 550px;
+    width: 25%;
+}
+
+/* ------------------ SECTION MAP INTERACTIVE --------------------- */
 
 
 /* ==========================================================================

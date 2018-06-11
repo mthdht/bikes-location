@@ -39,7 +39,12 @@ MapManager.prototype.showStationInfos = function (station) {
 
 // TODO: create markerEventsListeners method
 MapManager.prototype.markersEventsListeners = function () {
-
+    this.markers.forEach(function (marker) {
+        var that = this;
+        marker.addListener('click', function () {
+            that.showStationInfos(marker.station);
+        });
+    }, this);
 };
 
 // TODO: create init method
