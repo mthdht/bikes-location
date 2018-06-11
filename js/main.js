@@ -71,5 +71,6 @@ $(document).ready(function () {
         var mapManager = new MapManager(map, data);
         console.log(mapManager);
         mapManager.makeMarkers();
+        mapManager.markersEventsListeners();
     });
 });
