@@ -70,5 +70,6 @@ $(document).ready(function () {
     }).done(function (data) {
         var mapManager = new MapManager(map, data);
         console.log(mapManager);
+        mapManager.makeMarkers();
     });
 });
