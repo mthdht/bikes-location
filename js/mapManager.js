@@ -43,59 +43,34 @@ MapManager.prototype.makeMarkers = function () {
 
 // TODO: create showStationInfos method
 MapManager.prototype.showStationInfos = function (station) {
-    var togglePanel = $('<button>', {
-        'class': 'toggle-panel',
-        html: 'close'
-    }).on('click', function (event) {
-        $('#panel').toggle();
-    }).append($('<i>', {
-        'class':'fas fa-times'
-    }).css('paddingLeft', '10px'));
+    $('.name span').html(station.name.split('-')[1]);
 
-    var heading = $('<h2>', {
-        html: '<div class="icon"><i class="fas fa-info-circle fa-2x"></i></div> Détail de la station'
-    });
+    $('.address span').html(station.address);
 
-    var infos = $('<div>', {
-        'class': 'station-info'
-    });
-    var name = $('<p>', {
-       html: '<strong>Nom</strong>: ' + station.name.split('-')[1]
-    });
+    $('.available-bike-stands span').html(station.available_bike_stands);
 
-    var adresse = $('<p>', {
-        html: '<strong>Adresse</strong>: ' + station.address
-    });
+    $('.available-bikes span').html(station.available_bikes);
 
-    // var bikeStands = $('<p>', {
-    //     html: '<strong>Nombre d\'emplacements</strong>: ' + station.bike_stands
-    // });
+    $('.status span').html(station.status);
 
-    var availableBikeStands = $('<p>', {
-        html: '<strong>Emplacements libres</strong>: ' + station.available_bike_stands
-    });
-
-    var availableBikes = $('<p>', {
-        html: '<strong>Vélos disponibles</strong>: ' + station.available_bikes
-    });
-
-    var status = $('<p>', {
-        html: '<strong>statut</strong>: ' + (station.status == "OPEN" ? 'Ouvert' : 'Fermé')
-    });
-
-    infos.append(name, adresse, availableBikeStands, availableBikes, status);
-    $('#panel').html('').append(togglePanel, heading, infos).css('display', 'block');
+    $('#panel').css('display', 'block');
 
 };
 
 // TODO: create markerEventsListeners method
-MapManager.prototype.markersEventsListeners = function () {
+MapManager.prototype.eventsListeners = function () {
     this.markers.forEach(function (marker) {
         var that = this;
         marker.addListener('click', function () {
             that.showStationInfos(marker.station);
         });
     }, this);
+
+    $('.toggle-panel').on('click', function (event) {
+        $('#panel').css('display', 'none');
+    });
+
+
 };
 
 // TODO: create init method
