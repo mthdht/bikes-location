@@ -36,6 +36,9 @@ MapManager.prototype.makeMarkers = function () {
         });
         this.markers.push(marker);
     }, this);
+    var markerCluster = new MarkerClusterer(map, this.markers,
+        {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+        });
 };
 
 // TODO: create showStationInfos method
