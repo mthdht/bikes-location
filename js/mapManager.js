@@ -22,11 +22,17 @@ function MapManager(map, stations) {
 // TODO: create makeMarkers method
 MapManager.prototype.makeMarkers = function () {
     this.stations.forEach(function (station) {
+        var icons = {
+            green: 'https://user-images.githubusercontent.com/24936683/41283205-4467be02-6e36-11e8-93a3-5332345b81ea.png',
+            orange: 'https://user-images.githubusercontent.com/24936683/41283217-4681bd00-6e36-11e8-9d96-8bf975d24aa9.png',
+            red: 'https://user-images.githubusercontent.com/24936683/41283264-63833262-6e36-11e8-8738-b8bf838f1dcb.png'
+        };
         var marker = new google.maps.Marker({
             position: {lat: station.position.lat, lng: station.position.lng},
             map: map,
             title: station.name,
-            station: station
+            station: station,
+            icon: station.available_bikes > 5 ? icons.green : station.available_bikes > 0 ? icons.orange : icons.red
         });
         this.markers.push(marker);
     }, this);
