@@ -61,6 +61,8 @@ MapManager.prototype.showStationInfos = function (station) {
 
 // TODO: create markerEventsListeners method
 MapManager.prototype.eventsListeners = function () {
+
+    // marker event listener
     this.markers.forEach(function (marker) {
         var that = this;
         marker.addListener('click', function () {
@@ -68,6 +70,39 @@ MapManager.prototype.eventsListeners = function () {
             that.showStationInfos(marker.station);
         });
     }, this);
+
+    // canvas events listeners
+    var canvas = $('#reservation-canvas');
+    var context = canvas[0].getContext('2d');
+    context.lineJoin="round";
+    context.lineCap = "round";
+    context.lineWidth=3;
+    var paiting = false;
+
+    canvas.on('mousedown', function (event) {
+        console.log(event.offsetX, event.offsetY);
+        console.log(canvas[0].offsetLeft);
+        context.beginPath();
+        context.moveTo(event.offsetX, event.offsetY);
+        paiting = true;
+    });
+
+    canvas.on('mousemove', function (event) {
+        console.log(event.offsetX, event.offsetY);
+        if (paiting) {
+            context.lineTo(event.offsetX , event.offsetY);
+            context.moveTo(event.offsetX, event.offsetY);
+            context.stroke();
+        }
+    });
+
+    canvas.on('mouseup', function (event) {
+        paiting = false;
+    });
+
+    canvas.on('mouseleave', function (event) {
+        paiting = false;
+    });
 
     $('.toggle-panel').on('click', function (event) {
         $('#panel').css('display', 'none');
@@ -79,11 +114,14 @@ MapManager.prototype.eventsListeners = function () {
 
     $('.toggle-canvas, .reservation-signature').on('click', function (event) {
         $('.reservation-signature').css('display', 'none');
+        console.log(canvas[0].toDataURL());
+        context.clearRect(0,0,canvas[0].width, canvas[0].height);
     });
 
-    $('#reservation-canvas').on('click', function (event) {
+    $('#reservation-canvas, .reservation-complete').on('click', function (event) {
         event.stopPropagation();
-    })
+    });
+
 
 
 };

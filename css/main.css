@@ -442,16 +442,16 @@ img {
 }
 
 #reservation-canvas {
-    border: 3px solid #2196f3;
     background-color: white;
+    outline: solid #2196f3;
     margin-bottom: 20px;
-    width: 80%;
 }
 
 .reservation-button, .reservation-complete {
     padding: 10px 15px;
     border: none;
     font-weight: bold;
+    margin-bottom: 20px;
 }
 
 /* ------------------ END SECTION MAP INTERACTIVE --------------------- */
