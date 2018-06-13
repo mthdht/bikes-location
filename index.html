@@ -35,7 +35,7 @@
             </div>
         </header>
 
-        <section class="stations-infos">
+        <section class="stations-infos blue text-white">
             <h2>La Carte</h2>
             <div class="container">
                 <div class="infos">
@@ -53,17 +53,16 @@
 
         <section class="interactive-map">
             <div id="map">
-                <button><i class="fas fa-caret-right fa-2x"></i></button>
             </div>
             <div id="panel">
-                <button class="toggle-panel">
+                <button class="toggle-panel white">
                     close
                     <i class="fas fa-times close"></i>
                 </button>
 
                 <h2>
                     <div class="icon">
-                        <i class="fas fa-info-circle fa-2x"></i>
+                        <i class="fas fa-info-circle fa-2x text-blue white"></i>
                     </div>
                     Détail de la station
                 </h2>
@@ -85,7 +84,22 @@
                         <strong>Statut: </strong><span></span>
                     </p>
                 </div>
+
+                <div class="reservation-start">
+                    <button class="reservation-button blue-gray text-white">Réserver</button>
+                </div>
+
+                <div class="reservation-signature">
+                    <h2 class="text-white">Signature</h2>
+                    <button class="toggle-canvas text-white ">
+                        close
+                        <i class="fas fa-times close"></i>
+                    </button>
+                    <canvas id="reservation-canvas" class="white"></canvas>
+                    <button class="reservation-complete text-white blue">Envoyer</button>
+                </div>
             </div>
+
         </section>
 
 

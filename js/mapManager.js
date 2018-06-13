@@ -73,6 +73,18 @@ MapManager.prototype.eventsListeners = function () {
         $('#panel').css('display', 'none');
     });
 
+    $('.reservation-button').on('click', function (event) {
+        $('.reservation-signature').css('display', 'flex');
+    });
+
+    $('.toggle-canvas, .reservation-signature').on('click', function (event) {
+        $('.reservation-signature').css('display', 'none');
+    });
+
+    $('#reservation-canvas').on('click', function (event) {
+        event.stopPropagation();
+    })
+
 
 };
 
