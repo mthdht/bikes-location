@@ -12,6 +12,7 @@ function MapManager(map, stations) {
     this.stations = stations;
     this.markers = [];
     this.registration = null;
+    this.currentStation = null;
 
     // this.init();
 }
@@ -63,6 +64,7 @@ MapManager.prototype.eventsListeners = function () {
     this.markers.forEach(function (marker) {
         var that = this;
         marker.addListener('click', function () {
+            that.currentStation = marker.station;
             that.showStationInfos(marker.station);
         });
     }, this);
