@@ -80,16 +80,14 @@ MapManager.prototype.eventsListeners = function () {
     var paiting = false;
 
     canvas.on('mousedown', function (event) {
-        console.log(event.offsetX, event.offsetY);
-        console.log(canvas[0].offsetLeft);
         context.beginPath();
         context.moveTo(event.offsetX, event.offsetY);
         paiting = true;
     });
 
     canvas.on('mousemove', function (event) {
-        console.log(event.offsetX, event.offsetY);
         if (paiting) {
+            $('.blank-signature').css('display', 'none');
             context.lineTo(event.offsetX , event.offsetY);
             context.moveTo(event.offsetX, event.offsetY);
             context.stroke();
@@ -104,26 +102,41 @@ MapManager.prototype.eventsListeners = function () {
         paiting = false;
     });
 
+    // close button on panel
     $('.toggle-panel').on('click', function (event) {
         $('#panel').css('display', 'none');
     });
 
+    // reservation button open the modal
     $('.reservation-button').on('click', function (event) {
         $('.reservation-signature').css('display', 'flex');
     });
 
+    // close signature modal on click on it or close button
     $('.toggle-canvas, .reservation-signature').on('click', function (event) {
         $('.reservation-signature').css('display', 'none');
-        console.log(canvas[0].toDataURL());
+        $('.blank-signature').css('display', 'none');
         context.clearRect(0,0,canvas[0].width, canvas[0].height);
     });
 
+    // make click on canvas or 'envoyer' button not dismiss the modal
     $('#reservation-canvas, .reservation-complete').on('click', function (event) {
         event.stopPropagation();
     });
 
+    // check signature and register the reservation
+    $('.reservation-complete').on('click', function (event) {
+       // check if the canvas is not empty
+        var blank = document.createElement('canvas');
+        blank.width = canvas[0].width;
+        blank.height = canvas[0].height;
 
-
+        if (canvas[0].toDataURL() != blank.toDataURL()) {
+            console.log('not empty');
+        } else {
+            $('.blank-signature').css('display', 'block');
+        }
+    });
 };
 
 // TODO: create init method
