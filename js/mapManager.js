@@ -57,6 +57,12 @@ MapManager.prototype.showStationInfos = function (station) {
 
     $('#panel').css('display', 'block');
 
+    if (station.available_bikes < 1) {
+        $('.reservation-button').css('display', 'none');
+    } else {
+        $('.reservation-button').css('display', 'block');
+    }
+
 };
 
 // TODO: create markerEventsListeners method
