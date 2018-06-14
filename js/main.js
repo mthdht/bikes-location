@@ -15,8 +15,10 @@ $(document).ready(function () {
     var sliderData = [
         {
             data : {
-                imageSrc: 'http://gaetanboyron.fr/wp-content/uploads/2017/06/IMG_0442-1200x500.jpg',
+                imageSrc: 'img/slide0.png',
                 imageAlt: 'stand de velo',
+                title: 'Bienvenue sur Location de Vélo!',
+                description: 'Réservez un vélo en 4 etapes'
             },
             options: {
                 titleColor: '#fff',
@@ -25,22 +27,50 @@ $(document).ready(function () {
         },
         {
             data : {
-                imageSrc: 'https://pbs.twimg.com/media/DbikTUGXcAAFnoT.jpg',
-                imageAlt: 'ville de lyon',
-                title: 'ville de lyon'
+                imageSrc: 'img/slide1.png',
+                imageAlt: 'Carte de lyon avec marqueur',
+                title: 'Etape 1: Voir la carte',
+                description: 'Cliquez sur un marqueur pour voir les informations d\'une station'
             },
             options: {
-                titleColor: '#fff'
+                titleColor: '#fff',
+                descriptionColor: '#fff'
             }
         },
         {
             data: {
-                imageSrc: 'http://backgroundcheckall.com/wp-content/uploads/2017/12/parallax-background-image-1.jpg',
-                imageAlt: 'ville de lyon',
-                title: 'ville de lyon'
+                imageSrc: 'img/slide2.png',
+                imageAlt: 'carte de lyon avec panneau lateral montrant les informations d\'une station',
+                title: 'Etape 2: Informations d\'une station',
+                description: 'Cliquez sur \'Réserver\' pour faire une demande de réservation'
             },
             options: {
-                titleColor: '#fff'
+                titleColor: '#fff',
+                descriptionColor: '#fff'
+            }
+        },
+        {
+            data: {
+                imageSrc: 'img/slide3.png',
+                imageAlt: 'carte de lyon avec panneau lateral montrant un champ de signature',
+                title: 'Etape 3: Signez pour valider la réservation',
+                description: 'Faites votre signature et cliquez sur \'Valider\''
+            },
+            options: {
+                titleColor: '#fff',
+                descriptionColor: '#fff'
+            }
+        },
+        {
+            data: {
+                imageSrc: 'img/slide4.png',
+                imageAlt: 'carte de lyon et section montrant un message d\'état de la réservation',
+                title: 'Etape 4: Votre réservation est validée',
+                description: 'Un message vous présente l\'état de cotre réservation en temps réelle en pied de page'
+            },
+            options: {
+                titleColor: '#fff',
+                descriptionColor: '#fff'
             }
         }
     ];
