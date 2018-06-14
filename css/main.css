@@ -180,7 +180,7 @@ img {
 }
 
 .slide-image {
-    min-height: 180px;
+    min-height: 200px;
 }
 
 .slider-fade {
@@ -300,6 +300,7 @@ img {
     bottom: 0px;
     text-align: center;
     background-color: rgba(0,0,0, .5);
+    padding: 10px;
 }
 
 .slide-caption-title {
