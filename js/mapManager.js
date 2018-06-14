@@ -66,11 +66,12 @@ MapManager.prototype.showStationInfos = function (station) {
 
 
 MapManager.prototype.eventsListeners = function () {
+    var that = this;
     // marker event listener
-    this.markers.forEach(function (marker) {
-        var that = this;
+    this.markers.forEach(function (marker, index) {
         marker.addListener('click', function () {
-            that.currentStation = marker.station;
+            that.currentStation = index;
+            console.log(that.currentStation);
             that.showStationInfos(marker.station);
         });
     }, this);
@@ -162,7 +163,14 @@ MapManager.prototype.eventsListeners = function () {
         blank.height = canvas[0].height;
 
         if (canvas[0].toDataURL() != blank.toDataURL()) {
-            console.log('not empty');
+            that.registration = new Registration(that.stations, that.currentStation, 20);
+            console.log(that.registration);
+            that.registration.showReservationMessage();
+            that.stations[that.currentStation].available_bikes -= 1;
+            $('.reservation-signature').css('display', 'none');
+            $('.blank-signature').css('display', 'none');
+            context.clearRect(0,0,canvas[0].width, canvas[0].height);
+            $('#panel').css('display', 'none');
         } else {
             $('.blank-signature').css('display', 'block');
         }
