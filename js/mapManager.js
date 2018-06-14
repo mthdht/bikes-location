@@ -166,7 +166,8 @@ MapManager.prototype.eventsListeners = function () {
 
     // close signature modal on click on it or close button
     $('.toggle-canvas, .reservation-signature').on('click', function (event) {
-        $('.reservation-signature').toggle();
+        console.log('quit');
+        $('.reservation-signature').css('display', 'none');
         $('.blank-signature').toggle();
         context.clearRect(0,0,canvas[0].width, canvas[0].height);
     });
