@@ -54,7 +54,7 @@ $(document).ready(function () {
                 imageSrc: 'img/slide3.png',
                 imageAlt: 'carte de lyon avec panneau lateral montrant un champ de signature',
                 title: 'Etape 3: Signez pour valider la réservation',
-                description: 'Faites votre signature et cliquez sur \'Valider\''
+                description: 'Faites votre signature et cliquez sur \'envoyer\''
             },
             options: {
                 titleColor: '#fff',
