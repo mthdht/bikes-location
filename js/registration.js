@@ -24,7 +24,7 @@ function Registration(station, disponibility, indexStation) {
 
 Registration.prototype.showReservationMessage = function() {
     var that = this;
-    $('.message').html('Vous avez réserver la station: <span class="station-name">' +
+    $('.message').html('Vous avez réservé la station: <span class="station-name">' +
         that.station.name.split('-')[1] +
         '</span>, il vous reste <span class="time">' +
         Math.floor(that.storage.getItem('timeLeft') / 60) +
