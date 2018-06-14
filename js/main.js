@@ -69,8 +69,5 @@ $(document).ready(function () {
         url:'https://api.jcdecaux.com/vls/v1/stations?contract=lyon&apiKey=74369f6b8f27af8c8490527ed36bfc461783501c'
     }).done(function (data) {
         var mapManager = new MapManager(map, data);
-        console.log(mapManager);
-        mapManager.makeMarkers();
-        mapManager.eventsListeners();
     });
 });

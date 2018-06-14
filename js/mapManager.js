@@ -13,8 +13,9 @@ function MapManager(map, stations) {
     this.markers = [];
     this.registration = null;
     this.currentStation = null;
+    this.interval;
 
-    // this.init();
+    this.init();
 }
 
 /* ==============================================
@@ -43,7 +44,6 @@ MapManager.prototype.makeMarkers = function () {
     });
 };
 
-
 MapManager.prototype.showStationInfos = function (station) {
     $('.name span').html(station.name.split('-')[1]);
 
@@ -64,14 +64,35 @@ MapManager.prototype.showStationInfos = function (station) {
     }
 };
 
+MapManager.prototype.handleRegistration = function (time) {
+    if (window.sessionStorage.getItem('station')) {
+        this.stations[window.sessionStorage.getItem('station')].available_bikes += 1;
+    }
+    clearInterval(this.interval);
+    this.registration = new Registration(this.currentStation, time, this.stations.indexOf(this.currentStation));
+    this.registration.showReservationMessage();
+    var that = this;
+    $('.message').css('display', 'block');
+    this.interval = setInterval(function () {
+        that.registration.decrementReservationMessageTime();
+        that.registration.showReservationMessage();
+
+        if (that.registration.storage.getItem('timeLeft') < 0) {
+            clearInterval(that.interval);
+            $('.message').toggle();
+            that.stations[that.stations.indexOf(that.currentStation)].available_bikes += 1;
+            that.showStationInfos(that.currentStation);
+        }
+    }, 1000);
+    this.stations[this.stations.indexOf(this.currentStation)].available_bikes -= 1;
+};
 
 MapManager.prototype.eventsListeners = function () {
     var that = this;
     // marker event listener
     this.markers.forEach(function (marker, index) {
         marker.addListener('click', function () {
-            that.currentStation = index;
-            console.log(that.currentStation);
+            that.currentStation = marker.station;
             that.showStationInfos(marker.station);
         });
     }, this);
@@ -135,7 +156,7 @@ MapManager.prototype.eventsListeners = function () {
 
     // close button on panel
     $('.toggle-panel').on('click', function (event) {
-        $('#panel').css('display', 'none');
+        $('#panel').toggle();
     });
 
     // reservation button open the modal
@@ -145,8 +166,8 @@ MapManager.prototype.eventsListeners = function () {
 
     // close signature modal on click on it or close button
     $('.toggle-canvas, .reservation-signature').on('click', function (event) {
-        $('.reservation-signature').css('display', 'none');
-        $('.blank-signature').css('display', 'none');
+        $('.reservation-signature').toggle();
+        $('.blank-signature').toggle();
         context.clearRect(0,0,canvas[0].width, canvas[0].height);
     });
 
@@ -163,21 +184,28 @@ MapManager.prototype.eventsListeners = function () {
         blank.height = canvas[0].height;
 
         if (canvas[0].toDataURL() != blank.toDataURL()) {
-            that.registration = new Registration(that.stations, that.currentStation, 20);
-            console.log(that.registration);
-            that.registration.showReservationMessage();
-            that.stations[that.currentStation].available_bikes -= 1;
-            $('.reservation-signature').css('display', 'none');
-            $('.blank-signature').css('display', 'none');
+            that.handleRegistration(1200);
+            $('.reservation-signature').toggle();
+            $('.blank-signature').toggle();
             context.clearRect(0,0,canvas[0].width, canvas[0].height);
-            $('#panel').css('display', 'none');
+            that.showStationInfos(that.currentStation);
         } else {
-            $('.blank-signature').css('display', 'block');
+            $('.blank-signature').toggle();
         }
+    });
+
+    $(document).ready(function () {
+        console.log('ready');
+       if (window.sessionStorage.getItem('timeLeft') > 0) {
+           that.handleRegistration(window.sessionStorage.getItem('timeLeft'));
+       }
     });
 };
 
-// TODO: create init method
 MapManager.prototype.init = function () {
-
+    if (window.sessionStorage.getItem('station')) {
+        this.currentStation = this.stations[window.sessionStorage.getItem('station')];
+    }
+    this.makeMarkers();
+    this.eventsListeners();
 };

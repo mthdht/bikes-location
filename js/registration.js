@@ -4,13 +4,13 @@
  * Version: 1.0
  */
 
-function Registration(stations, current, disponibility) {
+function Registration(station, disponibility, indexStation) {
     /* ==============================================
        Reservation PROPERTIES
        ============================================== */
 
-    this.stations = stations;
-    this.current = current;
+    this.station = station;
+    this.indexStation = indexStation;
     this.disponibility = disponibility;
     this.storage = window.sessionStorage;
 
@@ -25,31 +25,14 @@ function Registration(stations, current, disponibility) {
 Registration.prototype.showReservationMessage = function() {
     var that = this;
     $('.message').html('Vous avez réserver la station: <span class="station-name">' +
-        that.stations[that.current].name.split('-')[1] +
+        that.station.name.split('-')[1] +
         '</span>, il vous reste <span class="time">' +
         Math.floor(that.storage.getItem('timeLeft') / 60) +
         'min et ' +
         that.storage.getItem('timeLeft') % 60 +
         'sec' +
-        '</span> pour aller chercher votre vélo !');
-
-    $('.message').css('display', 'block');
-
-    var interval = setInterval(function () {
-        that.decrementReservationMessageTime();
-        $('.time').html(Math.floor(that.storage.getItem('timeLeft') / 60) +
-            'min et ' +
-            that.storage.getItem('timeLeft') % 60 +
-            'sec');
-
-        if (that.storage.getItem('timeLeft') < 0) {
-            clearInterval(interval);
-            $('.message').css('display', 'none');
-            that.stations[that.current].available_bikes += 1;
-        }
-    }, 1000);
-
-
+        '</span> pour aller chercher votre vélo !'
+    );
 };
 
 Registration.prototype.decrementReservationMessageTime = function () {
@@ -59,4 +42,5 @@ Registration.prototype.decrementReservationMessageTime = function () {
 
 Registration.prototype.init = function () {
     this.storage.setItem('timeLeft', this.disponibility);
+    this.storage.setItem('station', this.indexStation);
 };
