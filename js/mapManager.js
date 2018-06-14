@@ -205,7 +205,7 @@ MapManager.prototype.eventsListeners = function () {
           station.status == 'OPEN' ? stations += 1 : null;
        });
 
-       $('.bikes p').html(available_bikes + " vélo disponibles");
+       $('.bikes p').html(available_bikes + " vélos disponibles");
        $('.stations p').html(stations + ' stations ouvertes');
     });
 };

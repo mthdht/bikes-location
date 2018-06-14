@@ -18,7 +18,7 @@ $(document).ready(function () {
                 imageSrc: 'img/slide0.png',
                 imageAlt: 'stand de velo',
                 title: 'Bienvenue sur Location de Vélo!',
-                description: 'Réservez un vélo en 4 etapes'
+                description: 'Réservez un vélo en 4 étapes'
             },
             options: {
                 titleColor: '#fff',
@@ -33,7 +33,7 @@ $(document).ready(function () {
                 description: 'Cliquez sur un marqueur pour voir les informations d\'une station <br/> ' +
                 '<i class="fas fa-map-marker" style="color: red"></i> = Aucun vélo, ' +
                 '<i class="fas fa-map-marker" style="color: orange"></i> = moins de 6 vélos,' +
-                '<i class="fas fa-map-marker" style="color: green"></i> = plus de 5 vélo,'
+                '<i class="fas fa-map-marker" style="color: green"></i> = plus de 5 vélos,'
             },
             options: {
                 titleColor: '#fff',
@@ -69,7 +69,7 @@ $(document).ready(function () {
                 imageSrc: 'img/slide4.png',
                 imageAlt: 'carte de lyon et section montrant un message d\'état de la réservation',
                 title: 'Etape 4: Votre réservation est validée',
-                description: 'Un message vous présente l\'état de cotre réservation en temps réelle en pied de page'
+                description: 'Un message vous présente l\'état de votre réservation en temps réel en pied de page'
             },
             options: {
                 titleColor: '#fff',
