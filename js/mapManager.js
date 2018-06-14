@@ -80,6 +80,7 @@ MapManager.prototype.eventsListeners = function () {
     var paiting = false;
 
     canvas[0].addEventListener('touchstart', function (event) {
+        event.preventDefault();
         //console.log(event.changedTouches[0].clientX - this.offsetLeft);
         console.log(event.changedTouches[0].clientX - this.getBoundingClientRect().x);
         console.log(event.changedTouches[0].clientY - this.getBoundingClientRect().y);
@@ -94,6 +95,7 @@ MapManager.prototype.eventsListeners = function () {
     });
 
     canvas[0].addEventListener('touchmove', function (event) {
+        event.preventDefault();
         if (paiting) {
             $('.blank-signature').css('display', 'none');
             context.lineTo(event.changedTouches[0].clientX - this.getBoundingClientRect().x, event.changedTouches[0].clientY - this.getBoundingClientRect().y);
