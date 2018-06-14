@@ -198,6 +198,14 @@ MapManager.prototype.eventsListeners = function () {
        if (window.sessionStorage.getItem('timeLeft') > 0) {
            that.handleRegistration(window.sessionStorage.getItem('timeLeft'));
        }
+       var available_bikes = 0, stations = 0;
+       that.stations.forEach(function (station) {
+          available_bikes += station.available_bikes;
+          station.status == 'OPEN' ? stations += 1 : null;
+       });
+
+       $('.bikes p').html(available_bikes + " vélo disponibles");
+       $('.stations p').html(stations + ' stations ouvertes');
     });
 };
 

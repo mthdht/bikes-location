@@ -350,6 +350,10 @@ img {
     padding: 10px;
 }
 
+.stations-infos h2 {
+    margin: 5px;
+}
+
 .infos {
     display: flex;
 }
@@ -358,6 +362,7 @@ img {
     width: 49.999%;
     text-align: center;
 }
+
 
 /* ------------------ SECTION STATIONS INFOS ---------------------- */
 
@@ -483,6 +488,10 @@ img {
     .container {
         max-width: 540px;
     }
+
+    .info i {
+        font-size: 45px;
+    }
 }
 
 @media (min-width: 768px) {
@@ -499,6 +508,10 @@ img {
 
     .slider-controls {
         display: flex;
+    }
+
+    .info i {
+        font-size: 60px;
     }
 
     .interactive-map {
