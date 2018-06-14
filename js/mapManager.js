@@ -79,6 +79,30 @@ MapManager.prototype.eventsListeners = function () {
     context.lineWidth=3;
     var paiting = false;
 
+    canvas[0].addEventListener('touchstart', function (event) {
+        //console.log(event.changedTouches[0].clientX - this.offsetLeft);
+        console.log(event.changedTouches[0].clientX - this.getBoundingClientRect().x);
+        console.log(event.changedTouches[0].clientY - this.getBoundingClientRect().y);
+        context.beginPath();
+        context.moveTo(event.changedTouches[0].clientX - this.getBoundingClientRect().x, event.changedTouches[0].clientY - this.getBoundingClientRect().y);
+        paiting = true;
+
+    });
+
+    canvas[0].addEventListener('touchend', function (event) {
+        paiting = false;
+    });
+
+    canvas[0].addEventListener('touchmove', function (event) {
+        if (paiting) {
+            $('.blank-signature').css('display', 'none');
+            context.lineTo(event.changedTouches[0].clientX - this.getBoundingClientRect().x, event.changedTouches[0].clientY - this.getBoundingClientRect().y);
+            context.stroke();
+        }
+    });
+
+
+
     canvas.on('mousedown', function (event) {
         context.beginPath();
         context.moveTo(event.offsetX, event.offsetY);
