@@ -20,7 +20,7 @@ function MapManager(map, stations) {
 /* ==============================================
    MapManager METHODS
    ============================================== */
-// TODO: create makeMarkers method
+
 MapManager.prototype.makeMarkers = function () {
     this.stations.forEach(function (station) {
         var icons = {
@@ -43,7 +43,7 @@ MapManager.prototype.makeMarkers = function () {
     });
 };
 
-// TODO: create showStationInfos method
+
 MapManager.prototype.showStationInfos = function (station) {
     $('.name span').html(station.name.split('-')[1]);
 
@@ -62,12 +62,10 @@ MapManager.prototype.showStationInfos = function (station) {
     } else {
         $('.reservation-button').css('display', 'block');
     }
-
 };
 
-// TODO: create markerEventsListeners method
-MapManager.prototype.eventsListeners = function () {
 
+MapManager.prototype.eventsListeners = function () {
     // marker event listener
     this.markers.forEach(function (marker) {
         var that = this;
