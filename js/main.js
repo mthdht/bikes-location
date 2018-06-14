@@ -30,7 +30,10 @@ $(document).ready(function () {
                 imageSrc: 'img/slide1.png',
                 imageAlt: 'Carte de lyon avec marqueur',
                 title: 'Etape 1: Voir la carte',
-                description: 'Cliquez sur un marqueur pour voir les informations d\'une station'
+                description: 'Cliquez sur un marqueur pour voir les informations d\'une station <br/> ' +
+                '<i class="fas fa-map-marker" style="color: red"></i> = Aucun vélo, ' +
+                '<i class="fas fa-map-marker" style="color: orange"></i> = moins de 6 vélos,' +
+                '<i class="fas fa-map-marker" style="color: green"></i> = plus de 5 vélo,'
             },
             options: {
                 titleColor: '#fff',
