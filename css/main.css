@@ -458,6 +458,20 @@ img {
     display: none;
 }
 
+.reservation {
+    padding: 10px;
+}
+
+.reservation p.message {
+    display: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.reservation span {
+    font-weight: bold;
+}
+
 /* ------------------ END SECTION MAP INTERACTIVE --------------------- */
 
 
