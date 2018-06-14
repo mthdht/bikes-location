@@ -178,12 +178,14 @@ MapManager.prototype.eventsListeners = function () {
 
     // check signature and register the reservation
     $('.reservation-complete').on('click', function (event) {
+        alert('complete click');
        // check if the canvas is not empty
         var blank = document.createElement('canvas');
         blank.width = canvas[0].width;
         blank.height = canvas[0].height;
 
         if (canvas[0].toDataURL() != blank.toDataURL()) {
+            alert('good canvas');
             that.handleRegistration(1200);
             $('.reservation-signature').toggle();
             $('.blank-signature').toggle();
