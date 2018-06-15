@@ -265,7 +265,7 @@ function Slider(slidesData = [{}], options = null) {
 
         // right and left arrow event
         if (this.options.keyboard) {
-            $(document).on('keypress', function (event) {
+            $(document).on('keydown', function (event) {
                 switch (event.keyCode) {
                     case 37:
                         if (!that.isSliding) {
