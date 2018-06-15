@@ -93,6 +93,8 @@ MapManager.prototype.eventsListeners = function () {
     this.markers.forEach(function (marker, index) {
         marker.addListener('click', function () {
             that.currentStation = marker.station;
+            $('.reservation-signature').css('display', 'none');
+            $('.blank-signature').css('display', 'none');
             that.showStationInfos(marker.station);
         });
     }, this);
@@ -107,9 +109,6 @@ MapManager.prototype.eventsListeners = function () {
 
     canvas[0].addEventListener('touchstart', function (event) {
         event.preventDefault();
-        //console.log(event.changedTouches[0].clientX - this.offsetLeft);
-        console.log(event.changedTouches[0].clientX - this.getBoundingClientRect().x);
-        console.log(event.changedTouches[0].clientY - this.getBoundingClientRect().y);
         context.beginPath();
         context.moveTo(event.changedTouches[0].clientX - this.getBoundingClientRect().x, event.changedTouches[0].clientY - this.getBoundingClientRect().y);
         paiting = true;
@@ -166,7 +165,6 @@ MapManager.prototype.eventsListeners = function () {
 
     // close signature modal on click on it or close button
     $('.toggle-canvas, .reservation-signature').on('click', function (event) {
-        console.log('quit');
         $('.reservation-signature').css('display', 'none');
         $('.blank-signature').toggle();
         context.clearRect(0,0,canvas[0].width, canvas[0].height);
@@ -185,7 +183,6 @@ MapManager.prototype.eventsListeners = function () {
         blank.height = canvas[0].height;
 
         if (canvas[0].toDataURL() != blank.toDataURL()) {
-            console.log('sign ok');
             that.handleRegistration(1200);
             $('.reservation-signature').toggle();
             $('.blank-signature').toggle();
