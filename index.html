@@ -1,0 +1,122 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="favicon.ico" />
+
+        <link rel="stylesheet" href="css/normalize.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <header>
+            <nav class="blue-gray">
+                <div class="container">
+                    <div class="nav-bar">
+                        <a href="#" class="nav-brand">
+                            <img src="img/logo.png" alt="logo de velo" width="70px">
+                            <h1> Location de vélo</h1>
+                        </a>
+                        <a href="#interactive-map" class="nav-link text-hover-blue-gray">Carte</a>
+                    </div>
+                </div>
+            </nav>
+            <div class="slider">
+            </div>
+        </header>
+
+        <section class="stations-infos blue text-white">
+            <h2>La Carte</h2>
+            <div class="container">
+                <div class="infos">
+                    <div class="info bikes">
+                        <i class="fas fa-bicycle fa-2x"></i>
+                        <p></p>
+                    </div>
+                    <div class="info stations">
+                        <i class="fas fa-warehouse fa-2x"></i>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="interactive-map" id="interactive-map">
+            <div id="map">
+            </div>
+            <div id="panel">
+                <button class="toggle-panel white">
+                    close
+                    <i class="fas fa-times close"></i>
+                </button>
+
+                <h2>
+                    <div class="icon">
+                        <i class="fas fa-info-circle fa-2x text-blue white"></i>
+                    </div>
+                    Détail de la station
+                </h2>
+
+                <div class="station-info">
+                    <p class="name">
+                        <strong>Nom: </strong><span></span>
+                    </p>
+                    <p class="address">
+                        <strong>Adresse: </strong><span></span>
+                    </p>
+                    <p class="available-bike-stands">
+                        <strong>Emplacements libres: </strong><span></span>
+                    </p>
+                    <p class="available-bikes">
+                        <strong>Vélos disponibles: </strong><span></span>
+                    </p>
+                    <p class="status">
+                        <strong>Statut: </strong><span></span>
+                    </p>
+                </div>
+
+                <div class="reservation-start">
+                    <button class="reservation-button blue-gray text-white">Réserver</button>
+                </div>
+
+                <div class="reservation-signature">
+                    <h2 class="text-white">Signature</h2>
+                    <button class="toggle-canvas text-white ">
+                        close
+                        <i class="fas fa-times close"></i>
+                    </button>
+                    <canvas id="reservation-canvas" class="white" width="200" height="100"></canvas>
+                    <button class="reservation-complete text-white blue">Envoyer</button>
+                    <span class="text-white blank-signature">Veuillez signer pour réserver !</span>
+                </div>
+            </div>
+        </section>
+
+        <footer class="blue-gray reservation">
+            <p class="container message blue"></p>
+            <p class="container"> &copy Site produit par Mthdht</p>
+        </footer>
+
+
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="js/slider.js"></script>
+        <script src="js/registration.js"></script>
+        <script src="js/mapManager.js"></script>
+        <script src="js/main.js"></script>
+        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+        </script>
+        <script defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSStEbmOqvlmb3ogmJsjiTFs2VKj8a4NY&languages=fr&region=FR">
+        </script>
+    </body>
+</html>
