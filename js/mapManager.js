@@ -66,6 +66,10 @@ MapManager.prototype.showStationInfos = function (station) {
 
 MapManager.prototype.handleRegistration = function (time) {
     if (window.sessionStorage.getItem('station') && time == 1200) {
+        if (this.stations[window.sessionStorage.getItem('station')].available_bikes == 0) {
+            this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283217-4681bd00-6e36-11e8-9d96-8bf975d24aa9.png');
+            console.log(this.markers[this.stations.indexOf(this.currentStation)].icon);
+        }
         this.stations[window.sessionStorage.getItem('station')].available_bikes += 1;
     }
     clearInterval(this.interval);
@@ -80,11 +84,19 @@ MapManager.prototype.handleRegistration = function (time) {
         if (that.registration.timeLeft < 0) {
             clearInterval(that.interval);
             $('.message').toggle();
+            if (this.stations[window.sessionStorage.getItem('station')].available_bikes == 0) {
+                this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283217-4681bd00-6e36-11e8-9d96-8bf975d24aa9.png');
+                console.log(this.markers[this.stations.indexOf(this.currentStation)].icon);
+            }
             that.stations[that.stations.indexOf(that.currentStation)].available_bikes += 1;
             that.showStationInfos(that.currentStation);
         }
     }, 1000);
     this.stations[this.stations.indexOf(this.currentStation)].available_bikes -= 1;
+    if (this.currentStation.available_bikes == 0) {
+        this.markers[this.stations.indexOf(this.currentStation)].setIcon('https://user-images.githubusercontent.com/24936683/41283264-63833262-6e36-11e8-8738-b8bf838f1dcb.png');
+        console.log(this.markers[this.stations.indexOf(this.currentStation)].icon);
+    }
 };
 
 MapManager.prototype.eventsListeners = function () {
@@ -93,6 +105,8 @@ MapManager.prototype.eventsListeners = function () {
     this.markers.forEach(function (marker, index) {
         marker.addListener('click', function () {
             that.currentStation = marker.station;
+            $('.reservation-signature').css('display', 'none');
+            $('.blank-signature').css('display', 'none');
             that.showStationInfos(marker.station);
         });
     }, this);
@@ -107,9 +121,6 @@ MapManager.prototype.eventsListeners = function () {
 
     canvas[0].addEventListener('touchstart', function (event) {
         event.preventDefault();
-        //console.log(event.changedTouches[0].clientX - this.offsetLeft);
-        console.log(event.changedTouches[0].clientX - this.getBoundingClientRect().x);
-        console.log(event.changedTouches[0].clientY - this.getBoundingClientRect().y);
         context.beginPath();
         context.moveTo(event.changedTouches[0].clientX - this.getBoundingClientRect().x, event.changedTouches[0].clientY - this.getBoundingClientRect().y);
         paiting = true;
@@ -166,9 +177,8 @@ MapManager.prototype.eventsListeners = function () {
 
     // close signature modal on click on it or close button
     $('.toggle-canvas, .reservation-signature').on('click', function (event) {
-        console.log('quit');
         $('.reservation-signature').css('display', 'none');
-        $('.blank-signature').toggle();
+        $('.blank-signature').css('display', 'none');
         context.clearRect(0,0,canvas[0].width, canvas[0].height);
     });
 
@@ -185,14 +195,13 @@ MapManager.prototype.eventsListeners = function () {
         blank.height = canvas[0].height;
 
         if (canvas[0].toDataURL() != blank.toDataURL()) {
-            console.log('sign ok');
             that.handleRegistration(1200);
             $('.reservation-signature').toggle();
             $('.blank-signature').toggle();
             context.clearRect(0,0,canvas[0].width, canvas[0].height);
             that.showStationInfos(that.currentStation);
         } else {
-            $('.blank-signature').toggle();
+            $('.blank-signature').css('display', 'block');
         }
     });
 
