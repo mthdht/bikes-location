@@ -13,7 +13,7 @@ function MapManager(map, stations) {
     this.markers = [];
     this.registration = null;
     this.currentStation = null;
-    this.interval;
+    this.interval = null;
 
     this.init();
 }
@@ -65,11 +65,11 @@ MapManager.prototype.showStationInfos = function (station) {
 };
 
 MapManager.prototype.handleRegistration = function (time) {
-    if (window.sessionStorage.getItem('station')) {
+    if (window.sessionStorage.getItem('station') && time == 1200) {
         this.stations[window.sessionStorage.getItem('station')].available_bikes += 1;
     }
     clearInterval(this.interval);
-    this.registration = new Registration(this.currentStation, time, this.stations.indexOf(this.currentStation));
+    this.registration = new Registration(this.currentStation, this.stations.indexOf(this.currentStation), time);
     this.registration.showReservationMessage();
     var that = this;
     $('.message').css('display', 'block');
@@ -77,7 +77,7 @@ MapManager.prototype.handleRegistration = function (time) {
         that.registration.decrementReservationMessageTime();
         that.registration.showReservationMessage();
 
-        if (that.registration.storage.getItem('timeLeft') < 0) {
+        if (that.registration.timeLeft < 0) {
             clearInterval(that.interval);
             $('.message').toggle();
             that.stations[that.stations.indexOf(that.currentStation)].available_bikes += 1;
@@ -185,6 +185,7 @@ MapManager.prototype.eventsListeners = function () {
         blank.height = canvas[0].height;
 
         if (canvas[0].toDataURL() != blank.toDataURL()) {
+            console.log('sign ok');
             that.handleRegistration(1200);
             $('.reservation-signature').toggle();
             $('.blank-signature').toggle();
@@ -196,17 +197,18 @@ MapManager.prototype.eventsListeners = function () {
     });
 
     $(document).ready(function () {
-       if (window.sessionStorage.getItem('timeLeft') > 0) {
-           that.handleRegistration(window.sessionStorage.getItem('timeLeft'));
-       }
-       var available_bikes = 0, stations = 0;
-       that.stations.forEach(function (station) {
+        if (1200 - (new Date() - new Date(window.sessionStorage.time)) / 1000 > 0) {
+            that.handleRegistration(1200 - (new Date() - new Date(window.sessionStorage.time)) / 1000)
+        }
+
+        var available_bikes = 0, stations = 0;
+        that.stations.forEach(function (station) {
           available_bikes += station.available_bikes;
           station.status == 'OPEN' ? stations += 1 : null;
-       });
+        });
 
-       $('.bikes p').html(available_bikes + " vélos disponibles");
-       $('.stations p').html(stations + ' stations ouvertes');
+        $('.bikes p').html(available_bikes + " vélos disponibles");
+        $('.stations p').html(stations + ' stations ouvertes');
     });
 };
 
