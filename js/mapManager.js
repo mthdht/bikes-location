@@ -13,6 +13,7 @@ function MapManager(map, stations) {
     this.markers = [];
     this.registration = null;
     this.currentStation = null;
+    this.selectedStation = null;
     this.interval = null;
 
     this.init();
@@ -64,9 +65,8 @@ MapManager.prototype.showStationInfos = function (station) {
     }
 };
 
-MapManager.prototype.handleRegistration = function (time) {
-    // change icon to marker and add available bikes to prev registration
-    if (window.sessionStorage.getItem('station') && time == 1200) {
+MapManager.prototype.changeMarkerIcon = function (status) {
+    if (status == 'up') {
         switch (this.stations[window.sessionStorage.getItem('station')].available_bikes) {
             case 0:
                 this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283217-4681bd00-6e36-11e8-9d96-8bf975d24aa9.png');
@@ -75,6 +75,22 @@ MapManager.prototype.handleRegistration = function (time) {
                 this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283205-4467be02-6e36-11e8-93a3-5332345b81ea.png');
                 break;
         }
+    } else {
+        switch (this.stations[window.sessionStorage.getItem('station')].available_bikes) {
+            case 0:
+                this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283264-63833262-6e36-11e8-8738-b8bf838f1dcb.png');
+                break;
+            case 5:
+                this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283217-4681bd00-6e36-11e8-9d96-8bf975d24aa9.png');
+                break;
+        }
+    }
+};
+
+MapManager.prototype.handleRegistration = function (time) {
+    // change icon to marker and add available bikes to prev registration
+    if (window.sessionStorage.getItem('station') && time == 1200) {
+        this.changeMarkerIcon('up');
         this.stations[window.sessionStorage.getItem('station')].available_bikes += 1;
     }
 
@@ -85,21 +101,15 @@ MapManager.prototype.handleRegistration = function (time) {
     var that = this;
     $('.message').css('display', 'block');
     this.interval = setInterval(function () {
-        that.registration.decrementReservationMessageTime();
+        that.registration.timeLeft -= 1;
         that.registration.showReservationMessage();
 
+        // if there is no time on registration
         if (that.registration.timeLeft < 0) {
             clearInterval(that.interval);
             $('.message').toggle();
 
-            switch (this.stations[window.sessionStorage.getItem('station')].available_bikes) {
-                case 0:
-                    this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283217-4681bd00-6e36-11e8-9d96-8bf975d24aa9.png');
-                    break;
-                case 5:
-                    this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283205-4467be02-6e36-11e8-93a3-5332345b81ea.png');
-                    break;
-            }
+            that.changeMarkerIcon('up');
 
             that.stations[that.stations.indexOf(that.currentStation)].available_bikes += 1;
             that.showStationInfos(that.currentStation);
@@ -107,14 +117,7 @@ MapManager.prototype.handleRegistration = function (time) {
     }, 1000);
     this.stations[this.stations.indexOf(this.currentStation)].available_bikes -= 1;
 
-    switch (this.stations[window.sessionStorage.getItem('station')].available_bikes) {
-        case 0:
-            this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283264-63833262-6e36-11e8-8738-b8bf838f1dcb.png');
-            break;
-        case 5:
-            this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283217-4681bd00-6e36-11e8-9d96-8bf975d24aa9.png');
-            break;
-    }
+    this.changeMarkerIcon('down');
 };
 
 MapManager.prototype.eventsListeners = function () {
@@ -122,7 +125,8 @@ MapManager.prototype.eventsListeners = function () {
     // marker event listener
     this.markers.forEach(function (marker, index) {
         marker.addListener('click', function () {
-            that.currentStation = marker.station;
+            that.selectedStation = marker.station;
+            console.log(that.selectedStation);
             $('.reservation-signature').css('display', 'none');
             $('.blank-signature').css('display', 'none');
             that.showStationInfos(marker.station);
@@ -213,6 +217,7 @@ MapManager.prototype.eventsListeners = function () {
         blank.height = canvas[0].height;
 
         if (canvas[0].toDataURL() != blank.toDataURL()) {
+            that.currentStation = that.selectedStation;
             that.handleRegistration(1200);
             $('.reservation-signature').toggle();
             $('.blank-signature').toggle();
@@ -222,27 +227,25 @@ MapManager.prototype.eventsListeners = function () {
             $('.blank-signature').css('display', 'block');
         }
     });
-
-    $(document).ready(function () {
-        if (1200 - (new Date() - new Date(window.sessionStorage.time)) / 1000 > 0) {
-            that.handleRegistration(1200 - (new Date() - new Date(window.sessionStorage.time)) / 1000)
-        }
-
-        var available_bikes = 0, stations = 0;
-        that.stations.forEach(function (station) {
-          available_bikes += station.available_bikes;
-          station.status == 'OPEN' ? stations += 1 : null;
-        });
-
-        $('.bikes p').html(available_bikes + " vélos disponibles");
-        $('.stations p').html(stations + ' stations ouvertes');
-    });
 };
 
 MapManager.prototype.init = function () {
-    if (window.sessionStorage.getItem('station')) {
-        this.currentStation = this.stations[window.sessionStorage.getItem('station')];
-    }
     this.makeMarkers();
     this.eventsListeners();
+
+    // if there is already a registration
+    if (1200 - (new Date() - new Date(window.sessionStorage.time)) / 1000 > 0) {
+        this.currentStation = this.stations[window.sessionStorage.getItem('station')];
+        this.handleRegistration(1200 - (new Date() - new Date(window.sessionStorage.time)) / 1000)
+    }
+
+    // show infos of all stations
+    var available_bikes = 0, stations = 0;
+    this.stations.forEach(function (station) {
+        available_bikes += station.available_bikes;
+        station.status == 'OPEN' ? stations += 1 : null;
+    });
+
+    $('.bikes p').html(available_bikes + " vélos disponibles");
+    $('.stations p').html(stations + ' stations ouvertes');
 };
