@@ -142,6 +142,7 @@ MapManager.prototype.eventsListeners = function () {
             $('.reservation-signature').css('display', 'none');
             $('.blank-signature').css('display', 'none');
             that.showStationInfos(that.selectedStation);
+            window.location.href = '#panel';
         });
     }, this);
 
