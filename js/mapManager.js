@@ -32,14 +32,14 @@ MapManager.prototype.makeMarkers = function () {
         };
         var marker = new google.maps.Marker({
             position: {lat: station.position.lat, lng: station.position.lng},
-            map: map,
-            title: station.name,
+            map: this.map,
+            title: station.name.split('-')[1],
             stationIndex: index,
             icon: station.available_bikes > 5 ? icons.green : station.available_bikes > 0 ? icons.orange : icons.red
         });
         this.markers.push(marker);
     }, this);
-    var markerCluster = new MarkerClusterer(map, this.markers, {
+    var markerCluster = new MarkerClusterer(this.map, this.markers, {
         imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
         minimumClusterSize: 5
     });
