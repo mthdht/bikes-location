@@ -66,9 +66,13 @@ MapManager.prototype.showStationInfos = function (station) {
 
 MapManager.prototype.handleRegistration = function (time) {
     if (window.sessionStorage.getItem('station') && time == 1200) {
-        if (this.stations[window.sessionStorage.getItem('station')].available_bikes == 0) {
-            this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283217-4681bd00-6e36-11e8-9d96-8bf975d24aa9.png');
-            console.log(this.markers[this.stations.indexOf(this.currentStation)].icon);
+        switch (this.stations[window.sessionStorage.getItem('station')].available_bikes) {
+            case 0:
+                this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283217-4681bd00-6e36-11e8-9d96-8bf975d24aa9.png');
+                break;
+            case 5:
+                this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283205-4467be02-6e36-11e8-93a3-5332345b81ea.png');
+                break;
         }
         this.stations[window.sessionStorage.getItem('station')].available_bikes += 1;
     }
@@ -84,18 +88,29 @@ MapManager.prototype.handleRegistration = function (time) {
         if (that.registration.timeLeft < 0) {
             clearInterval(that.interval);
             $('.message').toggle();
-            if (this.stations[window.sessionStorage.getItem('station')].available_bikes == 0) {
-                this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283217-4681bd00-6e36-11e8-9d96-8bf975d24aa9.png');
-                console.log(this.markers[this.stations.indexOf(this.currentStation)].icon);
+
+            switch (this.stations[window.sessionStorage.getItem('station')].available_bikes) {
+                case 0:
+                    this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283217-4681bd00-6e36-11e8-9d96-8bf975d24aa9.png');
+                    break;
+                case 5:
+                    this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283205-4467be02-6e36-11e8-93a3-5332345b81ea.png');
+                    break;
             }
+
             that.stations[that.stations.indexOf(that.currentStation)].available_bikes += 1;
             that.showStationInfos(that.currentStation);
         }
     }, 1000);
     this.stations[this.stations.indexOf(this.currentStation)].available_bikes -= 1;
-    if (this.currentStation.available_bikes == 0) {
-        this.markers[this.stations.indexOf(this.currentStation)].setIcon('https://user-images.githubusercontent.com/24936683/41283264-63833262-6e36-11e8-8738-b8bf838f1dcb.png');
-        console.log(this.markers[this.stations.indexOf(this.currentStation)].icon);
+
+    switch (this.stations[window.sessionStorage.getItem('station')].available_bikes) {
+        case 0:
+            this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283264-63833262-6e36-11e8-8738-b8bf838f1dcb.png');
+            break;
+        case 5:
+            this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283217-4681bd00-6e36-11e8-9d96-8bf975d24aa9.png');
+            break;
     }
 };
 
