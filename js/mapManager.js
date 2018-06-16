@@ -65,6 +65,7 @@ MapManager.prototype.showStationInfos = function (station) {
 };
 
 MapManager.prototype.handleRegistration = function (time) {
+    // change icon to marker and add available bikes to prev registration
     if (window.sessionStorage.getItem('station') && time == 1200) {
         switch (this.stations[window.sessionStorage.getItem('station')].available_bikes) {
             case 0:
@@ -76,7 +77,9 @@ MapManager.prototype.handleRegistration = function (time) {
         }
         this.stations[window.sessionStorage.getItem('station')].available_bikes += 1;
     }
+
     clearInterval(this.interval);
+
     this.registration = new Registration(this.currentStation, this.stations.indexOf(this.currentStation), time);
     this.registration.showReservationMessage();
     var that = this;

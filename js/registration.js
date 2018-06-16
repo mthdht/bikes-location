@@ -38,6 +38,7 @@ Registration.prototype.decrementReservationMessageTime = function () {
 };
 
 Registration.prototype.init = function () {
+    // if it is new registration
     if (this.timeLeft == 1200) {
         //no registration yet
         this.storage.setItem('time', new Date());
