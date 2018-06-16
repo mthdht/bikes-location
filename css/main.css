@@ -266,8 +266,8 @@ img {
 }
 
 .slider-controls {
+    display: none;
     position: absolute;
-    display: flex;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
@@ -516,6 +516,10 @@ img {
 @media (min-width: 768px) {
     .container {
         max-width: 720px;
+    }
+
+    .slider-controls {
+        display: flex;
     }
 
     .slider-caption {
