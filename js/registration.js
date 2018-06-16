@@ -33,10 +33,6 @@ Registration.prototype.showReservationMessage = function() {
     );
 };
 
-Registration.prototype.decrementReservationMessageTime = function () {
-    this.timeLeft -= 1;
-};
-
 Registration.prototype.init = function () {
     // if it is new registration
     if (this.timeLeft == 1200) {
