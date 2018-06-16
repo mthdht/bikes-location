@@ -24,7 +24,7 @@ function MapManager(map, stations) {
    ============================================== */
 
 MapManager.prototype.makeMarkers = function () {
-    this.stations.forEach(function (station) {
+    this.stations.forEach(function (station, index) {
         var icons = {
             green: 'https://user-images.githubusercontent.com/24936683/41283205-4467be02-6e36-11e8-93a3-5332345b81ea.png',
             orange: 'https://user-images.githubusercontent.com/24936683/41283217-4681bd00-6e36-11e8-9d96-8bf975d24aa9.png',
@@ -34,7 +34,7 @@ MapManager.prototype.makeMarkers = function () {
             position: {lat: station.position.lat, lng: station.position.lng},
             map: map,
             title: station.name,
-            station: station,
+            stationIndex: index,
             icon: station.available_bikes > 5 ? icons.green : station.available_bikes > 0 ? icons.orange : icons.red
         });
         this.markers.push(marker);
@@ -58,6 +58,7 @@ MapManager.prototype.showStationInfos = function (station) {
 
     $('#panel').css('display', 'block');
 
+    // show 'Réserver' button if available bikes
     if (station.available_bikes < 1) {
         $('.reservation-button').css('display', 'none');
     } else {
@@ -66,22 +67,25 @@ MapManager.prototype.showStationInfos = function (station) {
 };
 
 MapManager.prototype.changeMarkerIcon = function (status) {
+    var index = window.sessionStorage.getItem('station');
     if (status == 'up') {
-        switch (this.stations[window.sessionStorage.getItem('station')].available_bikes) {
+        // change marker icon to be: red => orange, orange => green
+        switch (this.stations[index].available_bikes) {
             case 0:
-                this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283217-4681bd00-6e36-11e8-9d96-8bf975d24aa9.png');
+                this.markers[index].setIcon('https://user-images.githubusercontent.com/24936683/41283217-4681bd00-6e36-11e8-9d96-8bf975d24aa9.png');
                 break;
             case 5:
-                this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283205-4467be02-6e36-11e8-93a3-5332345b81ea.png');
+                this.markers[index].setIcon('https://user-images.githubusercontent.com/24936683/41283205-4467be02-6e36-11e8-93a3-5332345b81ea.png');
                 break;
         }
     } else {
-        switch (this.stations[window.sessionStorage.getItem('station')].available_bikes) {
+        // change marker icon to be: orange => red, green => orange
+        switch (this.stations[index].available_bikes) {
             case 0:
-                this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283264-63833262-6e36-11e8-8738-b8bf838f1dcb.png');
+                this.markers[index].setIcon('https://user-images.githubusercontent.com/24936683/41283264-63833262-6e36-11e8-8738-b8bf838f1dcb.png');
                 break;
             case 5:
-                this.markers[window.sessionStorage.getItem('station')].setIcon('https://user-images.githubusercontent.com/24936683/41283217-4681bd00-6e36-11e8-9d96-8bf975d24aa9.png');
+                this.markers[index].setIcon('https://user-images.githubusercontent.com/24936683/41283217-4681bd00-6e36-11e8-9d96-8bf975d24aa9.png');
                 break;
         }
     }
@@ -94,11 +98,18 @@ MapManager.prototype.handleRegistration = function (time) {
         this.stations[window.sessionStorage.getItem('station')].available_bikes += 1;
     }
 
+    // remove interval of printing registration message
     clearInterval(this.interval);
 
-    this.registration = new Registration(this.currentStation, this.stations.indexOf(this.currentStation), time);
+    var index = this.stations.indexOf(this.currentStation);
+
+    // make new registration based on time (new or refresh)
+    this.registration = new Registration(this.currentStation, index, time);
     this.registration.showReservationMessage();
+
     var that = this;
+
+    // show registration message
     $('.message').css('display', 'block');
     this.interval = setInterval(function () {
         that.registration.timeLeft -= 1;
@@ -106,17 +117,19 @@ MapManager.prototype.handleRegistration = function (time) {
 
         // if there is no time on registration
         if (that.registration.timeLeft < 0) {
+            // stop printing registration message
             clearInterval(that.interval);
             $('.message').toggle();
 
             that.changeMarkerIcon('up');
 
-            that.stations[that.stations.indexOf(that.currentStation)].available_bikes += 1;
-            that.showStationInfos(that.currentStation);
+            that.stations[index].available_bikes += 1;
+            that.showStationInfos(that.registration.station);
         }
     }, 1000);
-    this.stations[this.stations.indexOf(this.currentStation)].available_bikes -= 1;
 
+    // change number of available bike and change marker icon if needed
+    this.stations[index].available_bikes -= 1;
     this.changeMarkerIcon('down');
 };
 
@@ -125,11 +138,10 @@ MapManager.prototype.eventsListeners = function () {
     // marker event listener
     this.markers.forEach(function (marker, index) {
         marker.addListener('click', function () {
-            that.selectedStation = marker.station;
-            console.log(that.selectedStation);
+            that.selectedStation = that.stations[marker.stationIndex];
             $('.reservation-signature').css('display', 'none');
             $('.blank-signature').css('display', 'none');
-            that.showStationInfos(marker.station);
+            that.showStationInfos(that.selectedStation);
         });
     }, this);
 
@@ -233,10 +245,11 @@ MapManager.prototype.init = function () {
     this.makeMarkers();
     this.eventsListeners();
 
+    var time = 1200 - (new Date() - new Date(window.sessionStorage.time)) / 1000;
     // if there is already a registration
-    if (1200 - (new Date() - new Date(window.sessionStorage.time)) / 1000 > 0) {
+    if (time > 0) {
         this.currentStation = this.stations[window.sessionStorage.getItem('station')];
-        this.handleRegistration(1200 - (new Date() - new Date(window.sessionStorage.time)) / 1000)
+        this.handleRegistration(time);
     }
 
     // show infos of all stations
