@@ -28,14 +28,15 @@ MapManager.prototype.makeMarkers = function () {
         var icons = {
             green: 'https://user-images.githubusercontent.com/24936683/41283205-4467be02-6e36-11e8-93a3-5332345b81ea.png',
             orange: 'https://user-images.githubusercontent.com/24936683/41283217-4681bd00-6e36-11e8-9d96-8bf975d24aa9.png',
-            red: 'https://user-images.githubusercontent.com/24936683/41283264-63833262-6e36-11e8-8738-b8bf838f1dcb.png'
+            red: 'https://user-images.githubusercontent.com/24936683/41283264-63833262-6e36-11e8-8738-b8bf838f1dcb.png',
+            black: 'https://user-images.githubusercontent.com/24936683/41502964-3c403526-71c7-11e8-93f8-dcfdbbd73c29.png'
         };
         var marker = new google.maps.Marker({
             position: {lat: station.position.lat, lng: station.position.lng},
             map: this.map,
             title: station.name.split('-')[1],
             stationIndex: index,
-            icon: station.available_bikes > 5 ? icons.green : station.available_bikes > 0 ? icons.orange : icons.red
+            icon: station.status != 'OPEN' ? icons.black : station.available_bikes > 5 ? icons.green : station.available_bikes > 0 ? icons.orange : icons.red
         });
         this.markers.push(marker);
     }, this);
