@@ -23,11 +23,11 @@ var sliderData = [
         data : {
             imageSrc: 'img/slide1.png',
             imageAlt: 'Carte de lyon avec marqueur',
-            title: 'Etape 1: Voir la carte',
+            title: 'Etape 1: Voir la carte et cliquer sur un marqueur',
             description: 'Cliquez sur un marqueur pour voir les informations d\'une station <br/> ' +
             '<i class="fas fa-map-marker" style="color: red"></i> = Aucun vélo, ' +
-            '<i class="fas fa-map-marker" style="color: orange"></i> = moins de 6 vélos,' +
-            '<i class="fas fa-map-marker" style="color: green"></i> = plus de 5 vélos,'
+            '<i class="fas fa-map-marker" style="color: orange"></i> = Moins de 6 vélos, ' +
+            '<i class="fas fa-map-marker" style="color: green"></i> = Plus de 5 vélos !'
         },
         options: {
             titleColor: '#fff',
