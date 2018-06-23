@@ -124,6 +124,9 @@ MapManager.prototype.handleRegistration = function (time) {
 
             that.changeMarkerIcon('up');
 
+            // clear the registration storage
+            that.registration.storage.clear();
+
             that.stations[index].available_bikes += 1;
             that.showStationInfos(that.registration.station);
         }
@@ -232,7 +235,7 @@ MapManager.prototype.eventsListeners = function () {
 
         if (canvas[0].toDataURL() != blank.toDataURL()) {
             that.currentStation = that.selectedStation;
-            that.handleRegistration(1200);
+            that.handleRegistration(30);
             $('.reservation-signature').toggle();
             $('.blank-signature').toggle();
             context.clearRect(0,0,canvas[0].width, canvas[0].height);
@@ -247,7 +250,7 @@ MapManager.prototype.init = function () {
     this.makeMarkers();
     this.eventsListeners();
 
-    var time = 1200 - (new Date() - new Date(window.sessionStorage.time)) / 1000;
+    var time = 30 - (new Date() - new Date(window.sessionStorage.time)) / 1000;
     // if there is already a registration
     if (time > 0) {
         this.currentStation = this.stations[window.sessionStorage.getItem('station')];
