@@ -4,6 +4,14 @@
  * Version: 1.0
  */
 
+/**
+ * Constructor for the registartion
+ *
+ * @param station
+ * @param indexStation
+ * @param timeLeft
+ * @constructor
+ */
 function Registration(station, indexStation, timeLeft) {
     /* ==============================================
        Reservation PROPERTIES
@@ -19,7 +27,11 @@ function Registration(station, indexStation, timeLeft) {
 /* ==============================================
    Reservation METHOD
    ============================================== */
-Registration.prototype.showReservationMessage = function() {
+
+/**
+ * Fill the Reservation message
+ */
+Registration.prototype.fillReservationMessage = function () {
     var that = this;
 
     $('.message').html('Vous avez réservé la station: <span class="station-name">' +
@@ -33,9 +45,14 @@ Registration.prototype.showReservationMessage = function() {
     );
 };
 
+/**
+ * Initialize the reservation,
+ *  - set the storage time if it is new reservation, not if there is one already
+ *  - set the storage station index
+ */
 Registration.prototype.init = function () {
     // if it is new registration
-    if (this.timeLeft == 30) {
+    if (this.timeLeft == 1200) {
         //no registration yet
         this.storage.setItem('time', new Date());
     }
