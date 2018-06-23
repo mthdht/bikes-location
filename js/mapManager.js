@@ -135,15 +135,17 @@ MapManager.prototype.handleRegistration = function (time) {
 
     // make new registration based on time (new or refresh)
     this.registration = new Registration(this.currentStation, index, time);
-    this.registration.showReservationMessage();
+    this.registration.fillReservationMessage();
 
     var that = this;
 
     // show registration message
     $('.message').css('display', 'block');
+
+    // create the interval for changing message infos (time left)
     this.interval = setInterval(function () {
         that.registration.timeLeft -= 1;
-        that.registration.showReservationMessage();
+        that.registration.fillReservationMessage();
 
         // if there is no time on registration
         if (that.registration.timeLeft < 0) {
