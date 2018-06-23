@@ -4,6 +4,13 @@
  * Version: 1.0
  */
 
+/**
+ * Constructor for Map Manager that handle the map and markers
+ *
+ * @param map
+ * @param stations
+ * @constructor
+ */
 function MapManager(map, stations) {
     /* ==============================================
        MapManager PROPERTIES
@@ -23,6 +30,9 @@ function MapManager(map, stations) {
    MapManager METHODS
    ============================================== */
 
+/**
+ * Generate the map markers from the stations array, create markers array
+ */
 MapManager.prototype.makeMarkers = function () {
     this.stations.forEach(function (station, index) {
         var icons = {
@@ -46,6 +56,10 @@ MapManager.prototype.makeMarkers = function () {
     });
 };
 
+/**
+ * Fill the Station info panel with station information
+ * @param station
+ */
 MapManager.prototype.fillStationInfos = function (station) {
     $('.name span').html(station.name.split('-')[1]);
 
@@ -65,6 +79,15 @@ MapManager.prototype.fillStationInfos = function (station) {
     }
 };
 
+/**
+ * Change the marker icon color
+ *
+ * this function sees the available bikes of the current station and change the icon color to the
+ * marker it belong depends on the status
+ * (green to orange, orange to green if status is 'down' and reverse for 'up' status
+ *
+ * @param status
+ */
 MapManager.prototype.changeMarkerIcon = function (status) {
     var index = window.sessionStorage.getItem('station');
     if (status == 'up') {
@@ -90,6 +113,14 @@ MapManager.prototype.changeMarkerIcon = function (status) {
     }
 };
 
+/**
+ * Take care of the registration with associated time
+ *
+ * this function create a new registration object and change the icon marker if needed.
+ * It also generate the timer for displaying reservation message and remove it if time is up
+ *
+ * @param time
+ */
 MapManager.prototype.handleRegistration = function (time) {
     // change icon to marker and add available bikes to prev registration
     if (window.sessionStorage.getItem('station') && time == 1200) {
@@ -137,6 +168,9 @@ MapManager.prototype.handleRegistration = function (time) {
     this.changeMarkerIcon('down');
 };
 
+/**
+ * Create all the events Listeners that the map needs
+ */
 MapManager.prototype.eventsListeners = function () {
     var that = this;
     // marker event listener
@@ -247,6 +281,13 @@ MapManager.prototype.eventsListeners = function () {
     });
 };
 
+/**
+ * Initialise what the map need,
+ *  - create the markers
+ *  - start the events listeners
+ *  - start a registration for bike if there is stored in session storage
+ *  - fill bikes and stations infos
+ */
 MapManager.prototype.init = function () {
     this.makeMarkers();
     this.eventsListeners();
