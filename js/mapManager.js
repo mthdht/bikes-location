@@ -4,6 +4,13 @@
  * Version: 1.0
  */
 
+/**
+ * Constructor for Map Manager that handle the map and markers
+ *
+ * @param map
+ * @param stations
+ * @constructor
+ */
 function MapManager(map, stations) {
     /* ==============================================
        MapManager PROPERTIES
@@ -23,6 +30,9 @@ function MapManager(map, stations) {
    MapManager METHODS
    ============================================== */
 
+/**
+ * Generate the map markers from the stations array, create markers array
+ */
 MapManager.prototype.makeMarkers = function () {
     this.stations.forEach(function (station, index) {
         var icons = {
@@ -46,7 +56,11 @@ MapManager.prototype.makeMarkers = function () {
     });
 };
 
-MapManager.prototype.showStationInfos = function (station) {
+/**
+ * Fill the Station info panel with station information
+ * @param station
+ */
+MapManager.prototype.fillStationInfos = function (station) {
     $('.name span').html(station.name.split('-')[1]);
 
     $('.address span').html(station.address);
@@ -57,8 +71,6 @@ MapManager.prototype.showStationInfos = function (station) {
 
     $('.status span').html(station.status);
 
-    $('#panel').css('display', 'block');
-
     // show 'Réserver' button if available bikes
     if (station.available_bikes < 1) {
         $('.reservation-button').css('display', 'none');
@@ -67,6 +79,15 @@ MapManager.prototype.showStationInfos = function (station) {
     }
 };
 
+/**
+ * Change the marker icon color
+ *
+ * this function sees the available bikes of the current station and change the icon color to the
+ * marker it belong depends on the status
+ * (green to orange, orange to green if status is 'down' and reverse for 'up' status
+ *
+ * @param status
+ */
 MapManager.prototype.changeMarkerIcon = function (status) {
     var index = window.sessionStorage.getItem('station');
     if (status == 'up') {
@@ -92,6 +113,14 @@ MapManager.prototype.changeMarkerIcon = function (status) {
     }
 };
 
+/**
+ * Take care of the registration with associated time
+ *
+ * this function create a new registration object and change the icon marker if needed.
+ * It also generate the timer for displaying reservation message and remove it if time is up
+ *
+ * @param time
+ */
 MapManager.prototype.handleRegistration = function (time) {
     // change icon to marker and add available bikes to prev registration
     if (window.sessionStorage.getItem('station') && time == 1200) {
@@ -106,15 +135,17 @@ MapManager.prototype.handleRegistration = function (time) {
 
     // make new registration based on time (new or refresh)
     this.registration = new Registration(this.currentStation, index, time);
-    this.registration.showReservationMessage();
+    this.registration.fillReservationMessage();
 
     var that = this;
 
     // show registration message
     $('.message').css('display', 'block');
+
+    // create the interval for changing message infos (time left)
     this.interval = setInterval(function () {
         that.registration.timeLeft -= 1;
-        that.registration.showReservationMessage();
+        that.registration.fillReservationMessage();
 
         // if there is no time on registration
         if (that.registration.timeLeft < 0) {
@@ -124,8 +155,13 @@ MapManager.prototype.handleRegistration = function (time) {
 
             that.changeMarkerIcon('up');
 
+            // clear the registration storage
+            that.registration.storage.clear();
+
             that.stations[index].available_bikes += 1;
-            that.showStationInfos(that.registration.station);
+            that.fillStationInfos(that.registration.station);
+            $('#panel').css('display', 'block');
+
         }
     }, 1000);
 
@@ -134,6 +170,9 @@ MapManager.prototype.handleRegistration = function (time) {
     this.changeMarkerIcon('down');
 };
 
+/**
+ * Create all the events Listeners that the map needs
+ */
 MapManager.prototype.eventsListeners = function () {
     var that = this;
     // marker event listener
@@ -142,7 +181,8 @@ MapManager.prototype.eventsListeners = function () {
             that.selectedStation = that.stations[marker.stationIndex];
             $('.reservation-signature').css('display', 'none');
             $('.blank-signature').css('display', 'none');
-            that.showStationInfos(that.selectedStation);
+            that.fillStationInfos(that.selectedStation);
+            $('#panel').css('display', 'block');
             window.location.href = '#panel';
         });
     }, this);
@@ -236,13 +276,20 @@ MapManager.prototype.eventsListeners = function () {
             $('.reservation-signature').toggle();
             $('.blank-signature').toggle();
             context.clearRect(0,0,canvas[0].width, canvas[0].height);
-            that.showStationInfos(that.currentStation);
+            that.fillStationInfos(that.currentStation);
         } else {
             $('.blank-signature').css('display', 'block');
         }
     });
 };
 
+/**
+ * Initialise what the map need,
+ *  - create the markers
+ *  - start the events listeners
+ *  - start a registration for bike if there is stored in session storage
+ *  - fill bikes and stations infos
+ */
 MapManager.prototype.init = function () {
     this.makeMarkers();
     this.eventsListeners();
