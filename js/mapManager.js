@@ -274,7 +274,7 @@ MapManager.prototype.eventsListeners = function () {
             that.currentStation = that.selectedStation;
             that.handleRegistration(1200);
             $('.reservation-signature').toggle();
-            $('.blank-signature').toggle();
+            $('.blank-signature').css('display', 'none');
             context.clearRect(0,0,canvas[0].width, canvas[0].height);
             that.fillStationInfos(that.currentStation);
         } else {
