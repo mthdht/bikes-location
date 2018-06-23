@@ -46,7 +46,7 @@ MapManager.prototype.makeMarkers = function () {
     });
 };
 
-MapManager.prototype.showStationInfos = function (station) {
+MapManager.prototype.fillStationInfos = function (station) {
     $('.name span').html(station.name.split('-')[1]);
 
     $('.address span').html(station.address);
@@ -56,8 +56,6 @@ MapManager.prototype.showStationInfos = function (station) {
     $('.available-bikes span').html(station.available_bikes);
 
     $('.status span').html(station.status);
-
-    $('#panel').css('display', 'block');
 
     // show 'Réserver' button if available bikes
     if (station.available_bikes < 1) {
@@ -128,7 +126,9 @@ MapManager.prototype.handleRegistration = function (time) {
             that.registration.storage.clear();
 
             that.stations[index].available_bikes += 1;
-            that.showStationInfos(that.registration.station);
+            that.fillStationInfos(that.registration.station);
+            $('#panel').css('display', 'block');
+
         }
     }, 1000);
 
@@ -145,7 +145,8 @@ MapManager.prototype.eventsListeners = function () {
             that.selectedStation = that.stations[marker.stationIndex];
             $('.reservation-signature').css('display', 'none');
             $('.blank-signature').css('display', 'none');
-            that.showStationInfos(that.selectedStation);
+            that.fillStationInfos(that.selectedStation);
+            $('#panel').css('display', 'block');
             window.location.href = '#panel';
         });
     }, this);
@@ -235,11 +236,11 @@ MapManager.prototype.eventsListeners = function () {
 
         if (canvas[0].toDataURL() != blank.toDataURL()) {
             that.currentStation = that.selectedStation;
-            that.handleRegistration(30);
+            that.handleRegistration(1200);
             $('.reservation-signature').toggle();
             $('.blank-signature').toggle();
             context.clearRect(0,0,canvas[0].width, canvas[0].height);
-            that.showStationInfos(that.currentStation);
+            that.fillStationInfos(that.currentStation);
         } else {
             $('.blank-signature').css('display', 'block');
         }
@@ -250,7 +251,7 @@ MapManager.prototype.init = function () {
     this.makeMarkers();
     this.eventsListeners();
 
-    var time = 30 - (new Date() - new Date(window.sessionStorage.time)) / 1000;
+    var time = 1200 - (new Date() - new Date(window.sessionStorage.time)) / 1000;
     // if there is already a registration
     if (time > 0) {
         this.currentStation = this.stations[window.sessionStorage.getItem('station')];

@@ -35,7 +35,7 @@ Registration.prototype.showReservationMessage = function() {
 
 Registration.prototype.init = function () {
     // if it is new registration
-    if (this.timeLeft == 30) {
+    if (this.timeLeft == 1200) {
         //no registration yet
         this.storage.setItem('time', new Date());
     }
